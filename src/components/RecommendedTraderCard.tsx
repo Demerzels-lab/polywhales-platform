@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { TrendingUp, TrendingDown, Award, Target } from 'lucide-react';
 
 interface RecommendedTraderCardProps {
@@ -17,6 +18,7 @@ interface RecommendedTraderCardProps {
 
 export default function RecommendedTraderCard({ trader }: RecommendedTraderCardProps) {
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
   
   // Debug: Log the trader data
   console.log('TraderCard rendering for:', trader.trader_name, 'Wallet:', trader.trader_wallet);
@@ -67,10 +69,12 @@ export default function RecommendedTraderCard({ trader }: RecommendedTraderCardP
           className="px-3 py-1.5 rounded-lg font-medium text-sm bg-indigo-600 text-white hover:bg-indigo-700 transition-colors flex items-center space-x-1"
           onClick={(e) => {
             e.preventDefault();
-            window.location.href = `/profile/${trader.trader_wallet}`;
+            setIsLoading(true);
+            console.log('Navigating to:', `/profile/${trader.trader_wallet}`);
+            navigate(`/profile/${trader.trader_wallet}`);
           }}
         >
-          <span>View Full Profile</span>
+          <span>{isLoading ? 'Loading...' : 'View Full Profile'}</span>
         </a>
       </div>
 
