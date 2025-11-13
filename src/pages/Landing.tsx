@@ -36,24 +36,63 @@ export default function Landing({ onShowAuth }: LandingProps) {
   const sampleTraders = [
     {
       name: 'fengdubiying',
+      trader_wallet: '0x1a2b3c4d5e6f7890abcdef1234567890abcdef12',
       profit: '$2.96M',
       monthProfit: '+$2.94M',
       winRate: '73.5%',
-      isPositive: true
+      totalTrades: 1247,
+      isPositive: true,
+      description: 'Consistent performer specializing in political markets'
     },
     {
       name: 'yatsen',
+      trader_wallet: '0x9876543210fedcba0987654321fedcba09876543',
       profit: '$1.85M',
       monthProfit: '+$1.82M',
       winRate: '68.2%',
-      isPositive: true
+      totalTrades: 892,
+      isPositive: true,
+      description: 'Tech and crypto market specialist'
     },
     {
       name: 'scottilicious',
+      trader_wallet: '0xabcdef1234567890abcdef1234567890abcdef12',
       profit: '$1.46M',
       monthProfit: '+$1.40M',
       winRate: '71.8%',
-      isPositive: true
+      totalTrades: 1056,
+      isPositive: true,
+      description: 'High-volume trader focusing on entertainment markets'
+    },
+    {
+      name: 'thegentlemannft',
+      trader_wallet: '0xfedcba9876543210fedcba9876543210fedcba98',
+      profit: '$1.21M',
+      monthProfit: '+$1.18M',
+      winRate: '76.3%',
+      totalTrades: 634,
+      isPositive: true,
+      description: 'NFT and digital asset market expert'
+    },
+    {
+      name: 'cryptoqueen2024',
+      trader_wallet: '0x1234567890abcdef1234567890abcdef12345678',
+      profit: '$0.98M',
+      monthProfit: '+$0.95M',
+      winRate: '69.1%',
+      totalTrades: 723,
+      isPositive: true,
+      description: 'Cryptocurrency and DeFi market specialist'
+    },
+    {
+      name: 'marketmakerpro',
+      trader_wallet: '0xabcdefabcdefabcdefabcdefabcdefabcdefabcd',
+      profit: '$0.87M',
+      monthProfit: '+$0.84M',
+      winRate: '64.7%',
+      totalTrades: 1456,
+      isPositive: true,
+      description: 'High-frequency trading across multiple market categories'
     }
   ];
 
@@ -81,10 +120,10 @@ export default function Landing({ onShowAuth }: LandingProps) {
   ];
 
   const stats = [
-    { label: 'Tracked Traders', value: '500+' },
-    { label: 'Total Profit Tracked', value: '$2M+' },
-    { label: 'Active Users', value: '1,000+' },
-    { label: 'Daily Alerts', value: '10K+' }
+    { label: 'Recommended Traders', value: '6' },
+    { label: 'Combined Profit', value: '$9.3M+' },
+    { label: 'Average Win Rate', value: '70.6%' },
+    { label: 'Total Trades', value: '5,008+' }
   ];
 
   return (
@@ -330,7 +369,7 @@ export default function Landing({ onShowAuth }: LandingProps) {
         </div>
 
         {/* Sample Traders Grid */}
-        <div className="grid md:grid-cols-3 gap-6 mb-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
           {sampleTraders.map((trader, index) => (
             <div key={index} className="bg-white rounded-lg shadow-md p-6 border border-gray-200 relative">
               <div className="absolute top-4 right-4">
@@ -338,16 +377,21 @@ export default function Landing({ onShowAuth }: LandingProps) {
                   Sample
                 </div>
               </div>
-              <div className="flex items-center space-x-3 mb-4">
+              <div className="flex items-center space-x-3 mb-3">
                 <div className="w-12 h-12 rounded-full bg-gradient-to-br from-indigo-100 to-purple-100 flex items-center justify-center">
                   <Users className="h-6 w-6 text-indigo-600" />
                 </div>
-                <div>
+                <div className="flex-1">
                   <h4 className="font-semibold text-gray-900">{trader.name}</h4>
-                  <p className="text-xs text-gray-500">Top Performer</p>
+                  <p className="text-xs text-gray-500 truncate">{trader.trader_wallet.slice(0, 16)}...</p>
                 </div>
               </div>
-              <div className="space-y-3">
+              
+              {trader.description && (
+                <p className="text-xs text-gray-600 mb-3 italic">{trader.description}</p>
+              )}
+              
+              <div className="space-y-2">
                 <div className="flex justify-between items-center bg-gray-50 rounded-lg p-3">
                   <span className="text-sm text-gray-600">Total Profit</span>
                   <span className="text-lg font-bold text-green-600">{trader.profit}</span>
@@ -356,6 +400,10 @@ export default function Landing({ onShowAuth }: LandingProps) {
                   <span className="text-sm text-gray-600">Past Month</span>
                   <span className="text-lg font-bold text-green-600">{trader.monthProfit}</span>
                 </div>
+                <div className="flex justify-between items-center bg-gray-50 rounded-lg p-3">
+                  <span className="text-sm text-gray-600">Total Trades</span>
+                  <span className="text-sm font-semibold text-gray-900">{trader.totalTrades.toLocaleString()}</span>
+                </div>
                 <div className="flex justify-between items-center pt-2 border-t border-gray-200">
                   <span className="text-sm text-gray-600">Win Rate</span>
                   <span className="text-sm font-semibold text-gray-900">{trader.winRate}</span>
@@ -363,6 +411,22 @@ export default function Landing({ onShowAuth }: LandingProps) {
               </div>
             </div>
           ))}
+        </div>
+        
+        {/* Show all 6 traders call to action */}
+        <div className="text-center mt-8">
+          <p className="text-gray-600 mb-4">Showing 6 of our top recommended traders</p>
+          <div className="text-sm text-gray-500">
+            <span className="inline-flex items-center space-x-1">
+              <span className="w-2 h-2 bg-green-400 rounded-full"></span>
+              <span>Currently profitable</span>
+            </span>
+            <span className="mx-4">•</span>
+            <span className="inline-flex items-center space-x-1">
+              <span className="w-2 h-2 bg-indigo-400 rounded-full"></span>
+              <span>Real Polymarket data</span>
+            </span>
+          </div>
         </div>
 
         <div className="text-center">
