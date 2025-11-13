@@ -18,6 +18,9 @@ interface RecommendedTraderCardProps {
 export default function RecommendedTraderCard({ trader }: RecommendedTraderCardProps) {
   const [isLoading, setIsLoading] = useState(false);
   
+  // Debug: Log the trader data
+  console.log('TraderCard rendering for:', trader.trader_name, 'Wallet:', trader.trader_wallet);
+  
   const formatProfit = (amount: number) => {
     const absAmount = Math.abs(amount);
     if (absAmount >= 1000000) {

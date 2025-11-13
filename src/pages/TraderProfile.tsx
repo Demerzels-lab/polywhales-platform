@@ -57,6 +57,9 @@ export default function TraderProfile() {
   const navigate = useNavigate();
   const { user } = useAuth();
   
+  // Debug: Log the walletAddress from URL params
+  console.log('TraderProfile - walletAddress from URL params:', walletAddress);
+  
   const [trader, setTrader] = useState<TraderData | null>(null);
   const [topTrades, setTopTrades] = useState<TopTrade[]>([]);
   const [pnlMetrics, setPnlMetrics] = useState<PnLMetrics | null>(null);
@@ -76,6 +79,7 @@ export default function TraderProfile() {
 
   const fetchTraderData = async () => {
     try {
+      console.log('Fetching trader data for wallet:', walletAddress);
       const { data, error } = await supabase
         .from('recommended_traders')
         .select('*')
@@ -83,6 +87,7 @@ export default function TraderProfile() {
         .single();
 
       if (error) throw error;
+      console.log('Trader data fetched:', data.trader_name, 'Wallet:', data.trader_wallet);
       setTrader(data);
       setWalletLabel(data.trader_name || data.trader_wallet.slice(0, 8));
     } catch (error) {
