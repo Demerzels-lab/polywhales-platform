@@ -40,7 +40,7 @@ export default function ActivityFeed({ activities }: ActivityFeedProps) {
                     {activity.side}
                   </span>
                   <span className="text-xs text-gray-500">
-                    {new Date(activity.timestamp).toLocaleTimeString('id-ID', {
+                    {new Date(activity.timestamp).toLocaleTimeString('en-US', {
                       hour: '2-digit',
                       minute: '2-digit'
                     })}

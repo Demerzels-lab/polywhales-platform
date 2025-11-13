@@ -61,22 +61,22 @@ export default function Landing({ onShowAuth }: LandingProps) {
     {
       icon: <TrendingUp className="h-6 w-6" />,
       title: 'Top Trader Insights',
-      description: 'Track performance dari top performers di Polymarket dengan metrics real-time'
+      description: 'Track performance from top performers on Polymarket with real-time metrics'
     },
     {
       icon: <Bell className="h-6 w-6" />,
       title: 'Telegram Alerts',
-      description: 'Dapatkan notifikasi instant via Telegram bot untuk setiap aktivitas trader'
+      description: 'Get instant notifications via Telegram bot for every trader activity'
     },
     {
       icon: <Eye className="h-6 w-6" />,
       title: 'Personal Watchlist',
-      description: 'Simpan dan monitor favorite traders Anda dalam personal watchlist'
+      description: 'Save and monitor your favorite traders in a personal watchlist'
     },
     {
       icon: <BarChart3 className="h-6 w-6" />,
       title: 'Performance Analytics',
-      description: 'Analisa win rate, profit trends, dan trading patterns secara mendalam'
+      description: 'Analyze win rate, profit trends, and trading patterns in depth'
     }
   ];
 
@@ -174,7 +174,7 @@ export default function Landing({ onShowAuth }: LandingProps) {
           <div className="text-center mb-16">
             <h3 className="text-3xl font-bold text-gray-900 mb-4">Why Choose PolyWhales?</h3>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Powerful tools dan insights untuk membantu Anda track dan learn dari top traders
+              Powerful tools and insights to help you track and learn from top traders
             </p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -200,7 +200,7 @@ export default function Landing({ onShowAuth }: LandingProps) {
           </div>
           <h3 className="text-3xl font-bold text-gray-900 mb-4">Sample Dashboard Preview</h3>
           <p className="text-lg text-gray-600">
-            Lihat seperti apa dashboard lengkap dengan data real-time
+            See what the complete dashboard looks like with real-time data
           </p>
         </div>
 
@@ -261,7 +261,7 @@ export default function Landing({ onShowAuth }: LandingProps) {
             Ready to Start Tracking?
           </h3>
           <p className="text-xl text-indigo-100 mb-8">
-            Join ribuan traders yang sudah menggunakan PolyWhales untuk meningkatkan trading strategy mereka
+            Join thousands of traders who are already using PolyWhales to improve their trading strategies
           </p>
           <button
             onClick={() => {

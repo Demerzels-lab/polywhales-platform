@@ -35,7 +35,7 @@ export default function WalletCard({ wallet, onDelete }: WalletCardProps) {
 
       <div className="flex items-center justify-between pt-4 border-t border-gray-100">
         <span className="text-xs text-gray-500">
-          Added {new Date(wallet.created_at).toLocaleDateString('id-ID')}
+          Added {new Date(wallet.created_at).toLocaleDateString('en-US')}
         </span>
         <a
           href={explorerUrl}

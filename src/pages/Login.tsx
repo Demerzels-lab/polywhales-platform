@@ -20,7 +20,7 @@ export default function Login() {
     try {
       if (isSignUp) {
         await signUp(email, password);
-        setMessage('Check your email untuk konfirmasi pendaftaran!');
+        setMessage('Check your email to confirm your registration!');
         setEmail('');
         setPassword('');
       } else {
@@ -46,7 +46,7 @@ export default function Login() {
           PolyWhales
         </h1>
         <p className="text-center text-gray-600 mb-8">
-          Track Polymarket traders dengan real-time alerts
+          Track Polymarket traders with real-time alerts
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -115,14 +115,14 @@ export default function Login() {
             className="text-sm text-indigo-600 hover:text-indigo-700"
           >
             {isSignUp
-              ? 'Sudah punya akun? Sign In'
-              : 'Belum punya akun? Sign Up'}
+              ? 'Already have an account? Sign In'
+              : 'Don\'t have an account? Sign Up'}
           </button>
         </div>
 
         <div className="mt-8 pt-6 border-t border-gray-200">
           <p className="text-xs text-gray-500 text-center">
-            Gunakan Telegram bot{' '}
+            Use Telegram bot{' '}
             <a
               href="https://t.me/PolyWhales_bot"
               target="_blank"
@@ -131,7 +131,7 @@ export default function Login() {
             >
               @PolyWhales_bot
             </a>{' '}
-            untuk notifikasi real-time
+            for real-time notifications
           </p>
         </div>
       </div>
