@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Activity, TrendingUp, Bell, Eye, Users, BarChart3, Zap, Shield, CheckCircle } from 'lucide-react';
+import { Activity, TrendingUp, Bell, Eye, Users, BarChart3, Zap, Shield, CheckCircle, UserPlus, MessageCircle, Settings, AlertTriangle, ArrowRight } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 
 interface LandingProps {
@@ -127,7 +127,7 @@ export default function Landing({ onShowAuth }: LandingProps) {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="text-center">
           <h2 className="text-5xl font-bold text-gray-900 mb-6">
-            Track Top Polymarket Traders
+            Track Whale Wallets On Polymarket
             <span className="block text-indigo-600 mt-2">Get Real-Time Alerts</span>
           </h2>
           <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
@@ -187,6 +187,131 @@ export default function Landing({ onShowAuth }: LandingProps) {
                 <p className="text-gray-600">{feature.description}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* User Flow Section */}
+      <section className="bg-gray-50 py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h3 className="text-3xl font-bold text-gray-900 mb-4">How It Works</h3>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Get started in minutes and start receiving real-time alerts from top Polymarket traders
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-5 gap-8">
+            {/* Step 1 */}
+            <div className="text-center relative">
+              <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-indigo-100 text-indigo-600 mb-4 relative">
+                <UserPlus className="h-10 w-10" />
+                <div className="absolute -top-2 -right-2 bg-indigo-600 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">
+                  1
+                </div>
+              </div>
+              <h4 className="text-lg font-semibold text-gray-900 mb-2">Sign Up & Login</h4>
+              <p className="text-gray-600 text-sm">
+                Create your free account with email and password to access the dashboard
+              </p>
+              
+              {/* Arrow for desktop */}
+              <div className="hidden md:block absolute top-10 -right-4 text-gray-300">
+                <ArrowRight className="h-6 w-6" />
+              </div>
+            </div>
+
+            {/* Step 2 */}
+            <div className="text-center relative">
+              <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-green-100 text-green-600 mb-4 relative">
+                <MessageCircle className="h-10 w-10" />
+                <div className="absolute -top-2 -right-2 bg-green-600 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">
+                  2
+                </div>
+              </div>
+              <h4 className="text-lg font-semibold text-gray-900 mb-2">Connect Telegram</h4>
+              <p className="text-gray-600 text-sm">
+                Link your Telegram account to receive instant notifications via our bot
+              </p>
+              
+              {/* Arrow for desktop */}
+              <div className="hidden md:block absolute top-10 -right-4 text-gray-300">
+                <ArrowRight className="h-6 w-6" />
+              </div>
+            </div>
+
+            {/* Step 3 */}
+            <div className="text-center relative">
+              <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-purple-100 text-purple-600 mb-4 relative">
+                <Eye className="h-10 w-10" />
+                <div className="absolute -top-2 -right-2 bg-purple-600 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">
+                  3
+                </div>
+              </div>
+              <h4 className="text-lg font-semibold text-gray-900 mb-2">Add Wallets</h4>
+              <p className="text-gray-600 text-sm">
+                Search and add whale wallets you want to track to your personal watchlist
+              </p>
+              
+              {/* Arrow for desktop */}
+              <div className="hidden md:block absolute top-10 -right-4 text-gray-300">
+                <ArrowRight className="h-6 w-6" />
+              </div>
+            </div>
+
+            {/* Step 4 */}
+            <div className="text-center relative">
+              <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-orange-100 text-orange-600 mb-4 relative">
+                <Settings className="h-10 w-10" />
+                <div className="absolute -top-2 -right-2 bg-orange-600 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">
+                  4
+                </div>
+              </div>
+              <h4 className="text-lg font-semibold text-gray-900 mb-2">Set Preferences</h4>
+              <p className="text-gray-600 text-sm">
+                Customize alert settings: profit thresholds, trading activity, and notification frequency
+              </p>
+              
+              {/* Arrow for desktop */}
+              <div className="hidden md:block absolute top-10 -right-4 text-gray-300">
+                <ArrowRight className="h-6 w-6" />
+              </div>
+            </div>
+
+            {/* Step 5 */}
+            <div className="text-center">
+              <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-red-100 text-red-600 mb-4 relative">
+                <AlertTriangle className="h-10 w-10" />
+                <div className="absolute -top-2 -right-2 bg-red-600 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">
+                  5
+                </div>
+              </div>
+              <h4 className="text-lg font-semibold text-gray-900 mb-2">Get Alerts</h4>
+              <p className="text-gray-600 text-sm">
+                Receive real-time Telegram alerts when tracked wallets make profitable moves
+              </p>
+            </div>
+          </div>
+
+          {/* Mobile arrows */}
+          <div className="md:hidden flex justify-center space-x-4 mt-8">
+            <ArrowRight className="h-6 w-6 text-gray-300 rotate-90" />
+            <ArrowRight className="h-6 w-6 text-gray-300 rotate-90" />
+            <ArrowRight className="h-6 w-6 text-gray-300 rotate-90" />
+          </div>
+
+          {/* Call to action */}
+          <div className="text-center mt-12">
+            <button
+              onClick={() => {
+                setAuthMode('signup');
+                setShowAuthModal(true);
+              }}
+              className="bg-indigo-600 text-white px-8 py-4 rounded-lg hover:bg-indigo-700 transition-colors font-semibold text-lg inline-flex items-center space-x-2"
+            >
+              <Zap className="h-5 w-5" />
+              <span>Start Your Journey Now</span>
+            </button>
           </div>
         </div>
       </section>
