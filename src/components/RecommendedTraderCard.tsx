@@ -127,19 +127,7 @@ export default function RecommendedTraderCard({ trader }: RecommendedTraderCardP
         </div>
       </div>
 
-      {/* Link to Profile (future feature) */}
-      <div className="mt-4 pt-3 border-t border-gray-200">
-        <a
-          href={`/profile/${trader.trader_wallet}`}
-          className="text-sm text-indigo-600 hover:text-indigo-700 font-medium"
-          onClick={(e) => {
-            e.preventDefault();
-            alert('Profile page coming soon!');
-          }}
-        >
-          View Full Profile →
-        </a>
-      </div>
+
     </div>
   );
 }
