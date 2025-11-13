@@ -1,6 +1,8 @@
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider, useAuth } from './contexts/AuthContext'
 import Landing from './pages/Landing'
 import Dashboard from './pages/Dashboard'
+import TraderProfile from './pages/TraderProfile'
 import './App.css'
 
 function AppContent() {
@@ -17,14 +19,21 @@ function AppContent() {
     );
   }
 
-  // Show Landing page for guest users, Dashboard for authenticated users
-  return user ? <Dashboard /> : <Landing onShowAuth={() => {}} />;
+  return (
+    <Routes>
+      <Route path="/" element={user ? <Dashboard /> : <Landing onShowAuth={() => {}} />} />
+      <Route path="/dashboard" element={user ? <Dashboard /> : <Landing onShowAuth={() => {}} />} />
+      <Route path="/profile/:walletAddress" element={user ? <TraderProfile /> : <Landing onShowAuth={() => {}} />} />
+    </Routes>
+  );
 }
 
 function App() {
   return (
     <AuthProvider>
-      <AppContent />
+      <Router>
+        <AppContent />
+      </Router>
     </AuthProvider>
   )
 }

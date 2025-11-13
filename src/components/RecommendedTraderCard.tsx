@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { TrendingUp, TrendingDown, Eye, EyeOff, Award, Target } from 'lucide-react';
+import { TrendingUp, TrendingDown, Award, Target } from 'lucide-react';
 
 interface RecommendedTraderCardProps {
   trader: {
@@ -13,17 +13,9 @@ interface RecommendedTraderCardProps {
     total_trades: number;
     description: string;
   };
-  isWatched: boolean;
-  onWatch: (walletAddress: string) => Promise<void>;
-  onUnwatch: (walletAddress: string) => Promise<void>;
 }
 
-export default function RecommendedTraderCard({ 
-  trader, 
-  isWatched, 
-  onWatch, 
-  onUnwatch 
-}: RecommendedTraderCardProps) {
+export default function RecommendedTraderCard({ trader }: RecommendedTraderCardProps) {
   const [isLoading, setIsLoading] = useState(false);
   
   const formatProfit = (amount: number) => {
@@ -36,20 +28,7 @@ export default function RecommendedTraderCard({
     return `$${absAmount.toFixed(2)}`;
   };
 
-  const handleToggleWatch = async () => {
-    setIsLoading(true);
-    try {
-      if (isWatched) {
-        await onUnwatch(trader.trader_wallet);
-      } else {
-        await onWatch(trader.trader_wallet);
-      }
-    } catch (error) {
-      console.error('Error toggling watch:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+
 
   const isProfitPositive = trader.past_month_profit >= 0;
 
@@ -80,29 +59,16 @@ export default function RecommendedTraderCard({
           </div>
         </div>
         
-        <button
-          onClick={handleToggleWatch}
-          disabled={isLoading}
-          className={`px-3 py-1.5 rounded-lg font-medium text-sm transition-all duration-200 flex items-center space-x-1 ${
-            isWatched
-              ? 'bg-indigo-100 text-indigo-700 hover:bg-indigo-200'
-              : 'bg-indigo-600 text-white hover:bg-indigo-700'
-          } disabled:opacity-50 disabled:cursor-not-allowed`}
+        <a
+          href={`/profile/${trader.trader_wallet}`}
+          className="px-3 py-1.5 rounded-lg font-medium text-sm bg-indigo-600 text-white hover:bg-indigo-700 transition-colors flex items-center space-x-1"
+          onClick={(e) => {
+            e.preventDefault();
+            window.location.href = `/profile/${trader.trader_wallet}`;
+          }}
         >
-          {isLoading ? (
-            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-current"></div>
-          ) : isWatched ? (
-            <>
-              <EyeOff className="h-4 w-4" />
-              <span>Unwatch</span>
-            </>
-          ) : (
-            <>
-              <Eye className="h-4 w-4" />
-              <span>Watch</span>
-            </>
-          )}
-        </button>
+          <span>View Full Profile</span>
+        </a>
       </div>
 
       {/* Description */}
