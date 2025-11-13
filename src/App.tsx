@@ -1,4 +1,6 @@
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { AuthProvider, useAuth } from './contexts/AuthContext'
 import Landing from './pages/Landing'
 import Dashboard from './pages/Dashboard'
@@ -7,6 +9,15 @@ import './App.css'
 
 function AppContent() {
   const { user, loading } = useAuth();
+  const location = useLocation();
+  
+  // Debug: Log current path
+  React.useEffect(() => {
+    if (location.pathname.startsWith('/profile/')) {
+      const walletAddress = location.pathname.split('/')[2];
+      console.log('App.tsx - Profile route active, walletAddress:', walletAddress);
+    }
+  }, [location.pathname]);
 
   if (loading) {
     return (

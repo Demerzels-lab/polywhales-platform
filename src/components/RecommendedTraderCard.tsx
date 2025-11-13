@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { TrendingUp, TrendingDown, Award, Target } from 'lucide-react';
 
 interface RecommendedTraderCardProps {
@@ -17,11 +17,12 @@ interface RecommendedTraderCardProps {
 }
 
 export default function RecommendedTraderCard({ trader }: RecommendedTraderCardProps) {
-  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   
-  // Debug: Log the trader data
+  // Debug: Log the trader data and Link props
   console.log('TraderCard rendering for:', trader.trader_name, 'Wallet:', trader.trader_wallet);
+  const profilePath = `/profile/${trader.trader_wallet}`;
+  console.log('TraderCard - Generated profile path:', profilePath);
   
   const formatProfit = (amount: number) => {
     const absAmount = Math.abs(amount);
@@ -64,18 +65,16 @@ export default function RecommendedTraderCard({ trader }: RecommendedTraderCardP
           </div>
         </div>
         
-        <a
-          href={`/profile/${trader.trader_wallet}`}
+        <Link
+          to={`/profile/${trader.trader_wallet}`}
           className="px-3 py-1.5 rounded-lg font-medium text-sm bg-indigo-600 text-white hover:bg-indigo-700 transition-colors flex items-center space-x-1"
-          onClick={(e) => {
-            e.preventDefault();
-            setIsLoading(true);
-            console.log('Navigating to:', `/profile/${trader.trader_wallet}`);
-            navigate(`/profile/${trader.trader_wallet}`);
+          onClick={(event) => {
+            console.log('Link clicked for trader:', trader.trader_name, 'navigating to:', `/profile/${trader.trader_wallet}`);
+            console.log('Event target:', event.currentTarget.getAttribute('href'));
           }}
         >
-          <span>{isLoading ? 'Loading...' : 'View Full Profile'}</span>
-        </a>
+          <span>View Full Profile</span>
+        </Link>
       </div>
 
       {/* Description */}

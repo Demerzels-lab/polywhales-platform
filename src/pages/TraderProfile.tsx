@@ -115,18 +115,33 @@ export default function TraderProfile() {
 
   const fetchPnLMetrics = async () => {
     try {
-      // Simulate PnL metrics calculation based on trader data
-      if (trader) {
-        const metrics: PnLMetrics = {
-          best_single_trade: Math.max(trader.total_profit * 0.3, 50000),
-          worst_single_trade: -Math.max(trader.total_profit * 0.1, 10000),
-          avg_position_size: trader.total_profit / Math.max(trader.total_trades, 1) * 10,
-          win_rate_percentage: trader.win_rate,
-          largest_position: trader.total_profit * 0.25,
-          risk_level: trader.win_rate > 75 ? 'Low' : trader.win_rate > 65 ? 'Medium' : 'High'
-        };
-        setPnlMetrics(metrics);
+      console.log('Fetching PnL metrics for wallet:', walletAddress);
+      // Get top trades for this trader first
+      const { data: trades, error: tradesError } = await supabase
+        .from('trader_top_trades')
+        .select('*')
+        .eq('trader_wallet', walletAddress)
+        .order('profit', { ascending: false })
+        .limit(10);
+
+      if (tradesError) {
+        console.error('Error fetching trades for PnL calculation:', tradesError);
       }
+
+      // Calculate PnL metrics based on actual trades data
+      const metrics: PnLMetrics = {
+        best_single_trade: trades && trades.length > 0 ? Math.max(...trades.map(t => t.profit)) : 50000,
+        worst_single_trade: trades && trades.length > 0 ? Math.min(...trades.map(t => t.profit)) : -10000,
+        avg_position_size: trades && trades.length > 0 ? trades.reduce((sum, t) => sum + t.amount, 0) / trades.length : 25000,
+        win_rate_percentage: trades && trades.length > 0 ? Math.round((trades.filter(t => t.profit > 0).length / trades.length) * 100) : 75,
+        largest_position: trades && trades.length > 0 ? Math.max(...trades.map(t => t.amount)) : 50000,
+        risk_level: trades && trades.length > 0 ? 
+          (trades.filter(t => t.profit > 0).length / trades.length > 0.75 ? 'Low' : 
+           trades.filter(t => t.profit > 0).length / trades.length > 0.65 ? 'Medium' : 'High') : 'Medium'
+      };
+      
+      console.log('PnL metrics calculated:', metrics);
+      setPnlMetrics(metrics);
     } catch (error) {
       console.error('Error fetching PnL metrics:', error);
     }
