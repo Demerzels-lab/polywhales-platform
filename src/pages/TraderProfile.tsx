@@ -37,11 +37,10 @@ interface TopTrade {
   id: string;
   trader_wallet: string;
   market_name: string;
-  profit_amount: number;
-  position_type: 'BUY' | 'SELL';
-  outcome: 'WIN' | 'LOSS' | 'PENDING';
+  profit: number;
+  position: 'BUY' | 'SELL';
+  amount: number;
   trade_date: string;
-  market_type: string;
 }
 
 interface PnLMetrics {
@@ -99,7 +98,7 @@ export default function TraderProfile() {
         .from('trader_top_trades')
         .select('*')
         .eq('trader_wallet', walletAddress)
-        .order('profit_amount', { ascending: false })
+        .order('profit', { ascending: false })
         .limit(5);
 
       if (error) throw error;
@@ -207,14 +206,7 @@ export default function TraderProfile() {
     }
   };
 
-  const getOutcomeColor = (outcome: string) => {
-    switch (outcome) {
-      case 'WIN': return 'text-green-600 bg-green-100';
-      case 'LOSS': return 'text-red-600 bg-red-100';
-      case 'PENDING': return 'text-yellow-600 bg-yellow-100';
-      default: return 'text-gray-600 bg-gray-100';
-    }
-  };
+
 
   if (loading) {
     return (
@@ -410,20 +402,17 @@ export default function TraderProfile() {
                           <h4 className="font-medium text-gray-900">{trade.market_name}</h4>
                         </div>
                         <div className="flex items-center space-x-2">
-                          <span className={`px-2 py-1 rounded-full text-xs font-medium ${getOutcomeColor(trade.outcome)}`}>
-                            {trade.outcome}
-                          </span>
                           <span className={`text-lg font-bold ${
-                            trade.profit_amount >= 0 ? 'text-green-600' : 'text-red-600'
+                            trade.profit >= 0 ? 'text-green-600' : 'text-red-600'
                           }`}>
-                            {trade.profit_amount >= 0 ? '+' : ''}{formatProfit(trade.profit_amount)}
+                            {trade.profit >= 0 ? '+' : ''}{formatProfit(trade.profit)}
                           </span>
                         </div>
                       </div>
                       <div className="flex items-center justify-between text-sm text-gray-600">
                         <div className="flex items-center space-x-4">
-                          <span>Position: <span className="font-medium">{trade.position_type}</span></span>
-                          <span>Type: <span className="font-medium">{trade.market_type}</span></span>
+                          <span>Position: <span className="font-medium">{trade.position}</span></span>
+                          <span>Amount: <span className="font-medium">{formatProfit(trade.amount)}</span></span>
                         </div>
                         <div className="flex items-center space-x-1">
                           <Calendar className="h-4 w-4" />
