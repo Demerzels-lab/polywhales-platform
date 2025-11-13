@@ -1,21 +1,22 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
 import { useAuth } from '../contexts/AuthContext';
-import { TrackedWallet, BettingActivity, RecommendedTrader } from '../types';
+import { TrackedWallet, BettingActivity, RecommendedTrader, Watchlist } from '../types';
 import WalletCard from '../components/WalletCard';
 import AddWalletForm from '../components/AddWalletForm';
 import ActivityFeed from '../components/ActivityFeed';
 import RecommendedTraderCard from '../components/RecommendedTraderCard';
-import { Activity, Wallet, Plus, LogOut, User, TrendingUp } from 'lucide-react';
+import { Activity, Wallet, Plus, LogOut, User, TrendingUp, Eye } from 'lucide-react';
 
-type TabType = 'wallets' | 'recommended';
+type TabType = 'wallets' | 'recommended' | 'watchlist';
 
 export default function Dashboard() {
   const { user, signOut } = useAuth();
-  const [activeTab, setActiveTab] = useState<TabType>('recommended');
+  const [activeTab, setActiveTab] = useState<TabType>('wallets');
   const [wallets, setWallets] = useState<TrackedWallet[]>([]);
   const [activities, setActivities] = useState<BettingActivity[]>([]);
   const [recommendedTraders, setRecommendedTraders] = useState<RecommendedTrader[]>([]);
+  const [watchlist, setWatchlist] = useState<Watchlist[]>([]);
 
   const [loading, setLoading] = useState(true);
   const [showAddForm, setShowAddForm] = useState(false);
@@ -24,6 +25,7 @@ export default function Dashboard() {
     fetchWallets();
     fetchActivities();
     fetchRecommendedTraders();
+    fetchWatchlist();
 
     // Subscribe to real-time updates
     const walletsSubscription = supabase
@@ -40,9 +42,17 @@ export default function Dashboard() {
       })
       .subscribe();
 
+    const watchlistSubscription = supabase
+      .channel('watchlist_changes')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'watchlist' }, () => {
+        fetchWatchlist();
+      })
+      .subscribe();
+
     return () => {
       walletsSubscription.unsubscribe();
       activitiesSubscription.unsubscribe();
+      watchlistSubscription.unsubscribe();
     };
   }, []);
 
@@ -110,6 +120,23 @@ export default function Dashboard() {
     }
   };
 
+  const fetchWatchlist = async () => {
+    try {
+      if (!user) return;
+
+      const { data, error } = await supabase
+        .from('watchlist')
+        .select('*')
+        .eq('user_id', user.id)
+        .order('added_at', { ascending: false });
+
+      if (error) throw error;
+      setWatchlist(data || []);
+    } catch (error) {
+      console.error('Error fetching watchlist:', error);
+    }
+  };
+
   const handleAddWallet = async (walletAddress: string, label?: string) => {
     try {
       if (!user) {
@@ -159,6 +186,56 @@ export default function Dashboard() {
       console.error('Error deleting wallet:', error);
       alert('Failed to delete wallet. Please try again.');
     }
+  };
+
+  const handleWatchTrader = async (walletAddress: string) => {
+    try {
+      if (!user) {
+        alert('You must be logged in to watch traders');
+        return;
+      }
+
+      const { error } = await supabase
+        .from('watchlist')
+        .insert([{
+          user_id: user.id,
+          wallet_address: walletAddress
+        }]);
+
+      if (error) throw error;
+      fetchWatchlist();
+    } catch (error) {
+      console.error('Error watching trader:', error);
+      alert('Failed to watch trader. Please try again.');
+    }
+  };
+
+  const handleUnwatchTrader = async (walletAddress: string) => {
+    try {
+      if (!user) return;
+
+      const { error } = await supabase
+        .from('watchlist')
+        .delete()
+        .eq('user_id', user.id)
+        .eq('wallet_address', walletAddress);
+
+      if (error) throw error;
+      fetchWatchlist();
+    } catch (error) {
+      console.error('Error unwatching trader:', error);
+      alert('Failed to unwatch trader. Please try again.');
+    }
+  };
+
+  const isTraderWatched = (walletAddress: string) => {
+    return watchlist.some(w => w.wallet_address === walletAddress);
+  };
+
+  const getWatchedTradersDetails = () => {
+    return recommendedTraders.filter(trader => 
+      isTraderWatched(trader.trader_wallet)
+    );
   };
 
   if (loading) {
@@ -269,6 +346,22 @@ export default function Dashboard() {
                 </span>
               </div>
             </button>
+            <button
+              onClick={() => setActiveTab('watchlist')}
+              className={`flex-1 px-6 py-3 text-sm font-medium transition-colors ${
+                activeTab === 'watchlist'
+                  ? 'border-b-2 border-indigo-600 text-indigo-600'
+                  : 'text-gray-600 hover:text-gray-800'
+              }`}
+            >
+              <div className="flex items-center justify-center space-x-2">
+                <Eye className="h-4 w-4" />
+                <span>My Watchlist</span>
+                <span className="bg-gray-200 text-gray-700 px-2 py-0.5 rounded-full text-xs">
+                  {watchlist.length}
+                </span>
+              </div>
+            </button>
           </div>
         </div>
 
@@ -336,9 +429,9 @@ export default function Dashboard() {
                       <RecommendedTraderCard
                         key={trader.id}
                         trader={trader}
-                        isWatched={false}
-                        onWatch={async () => {}}
-                        onUnwatch={async () => {}}
+                        isWatched={isTraderWatched(trader.trader_wallet)}
+                        onWatch={() => handleWatchTrader(trader.trader_wallet)}
+                        onUnwatch={() => handleUnwatchTrader(trader.trader_wallet)}
                       />
                     ))}
                   </div>
@@ -346,6 +439,36 @@ export default function Dashboard() {
               </div>
             )}
 
+            {/* My Watchlist Tab */}
+            {activeTab === 'watchlist' && (
+              <div>
+                <h2 className="text-xl font-semibold text-gray-900 mb-4">My Watchlist</h2>
+                <p className="text-sm text-gray-600 mb-6">
+                  Traders you're watching for activity updates
+                </p>
+                {watchlist.length === 0 ? (
+                  <div className="bg-white rounded-lg shadow p-8 text-center">
+                    <Eye className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                    <p className="text-gray-500 mb-4">No traders in your watchlist yet</p>
+                    <p className="text-sm text-gray-400">
+                      Go to "Recommended Traders" tab to start watching traders
+                    </p>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {getWatchedTradersDetails().map((trader) => (
+                      <RecommendedTraderCard
+                        key={trader.id}
+                        trader={trader}
+                        isWatched={true}
+                        onWatch={() => handleWatchTrader(trader.trader_wallet)}
+                        onUnwatch={() => handleUnwatchTrader(trader.trader_wallet)}
+                      />
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
 
           </div>
 
