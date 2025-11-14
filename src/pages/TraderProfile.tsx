@@ -219,21 +219,19 @@ export default function TraderProfile() {
 
   const getRiskLevelColor = (level: string) => {
     switch (level) {
-      case 'Low': return 'text-green-600 bg-green-100';
-      case 'Medium': return 'text-yellow-600 bg-yellow-100';
-      case 'High': return 'text-red-600 bg-red-100';
-      default: return 'text-gray-600 bg-gray-100';
+      case 'Low': return 'text-semantic-success bg-semantic-success/20';
+      case 'Medium': return 'text-semantic-warning bg-semantic-warning/20';
+      case 'High': return 'text-semantic-danger bg-semantic-danger/20';
+      default: return 'text-text-tertiary bg-navy-accent-dark-dark';
     }
   };
 
-
-
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-hero flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading trader profile...</p>
+          <div className="loading-spinner mx-auto mb-4"></div>
+          <p className="text-body text-text-secondary">Loading trader profile...</p>
         </div>
       </div>
     );
@@ -241,12 +239,12 @@ export default function TraderProfile() {
 
   if (!trader) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-hero flex items-center justify-center">
         <div className="text-center">
-          <p className="text-gray-600 mb-4">Trader not found</p>
+          <p className="text-body text-text-secondary mb-4">Trader not found</p>
           <button
             onClick={() => navigate('/dashboard')}
-            className="text-indigo-600 hover:text-indigo-700 font-medium"
+            className="btn-secondary"
           >
             ← Back to Dashboard
           </button>
@@ -256,24 +254,24 @@ export default function TraderProfile() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+    <div className="min-h-screen bg-gradient-hero">
       {/* Header */}
-      <header className="bg-white shadow-sm border-b border-gray-200">
+      <header className="header-dark">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center space-x-4">
             <button
               onClick={() => navigate('/dashboard')}
-              className="flex items-center space-x-2 text-gray-600 hover:text-gray-800 transition-colors"
+              className="btn-ghost flex items-center space-x-2"
             >
               <ArrowLeft className="h-5 w-5" />
               <span>Back to Dashboard</span>
             </button>
-            <div className="h-6 w-px bg-gray-300"></div>
+            <div className="h-6 w-px bg-border-subtle"></div>
             <div className="flex items-center space-x-3">
-              <div className="bg-indigo-600 p-2 rounded-lg">
-                <User className="h-6 w-6 text-white" />
+              <div className="nav-logo-icon">
+                <User className="h-6 w-6 text-cyan-electric" />
               </div>
-              <h1 className="text-2xl font-bold text-gray-900">Trader Profile</h1>
+              <h1 className="text-h2 text-text-primary font-display">Trader Profile</h1>
             </div>
           </div>
         </div>
@@ -281,37 +279,37 @@ export default function TraderProfile() {
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Trader Header */}
-        <div className="bg-white rounded-lg shadow-md p-8 mb-8">
+        <div className="card-dark p-8 mb-8">
           <div className="flex items-start justify-between">
             <div className="flex items-center space-x-6">
               <div className="relative">
                 <img
                   src={trader.profile_image_url}
                   alt={trader.trader_name}
-                  className="w-20 h-20 rounded-full object-cover bg-gradient-to-br from-indigo-100 to-purple-100"
+                  className="w-20 h-20 rounded-full object-cover bg-navy-accent-dark border-2 border-border-moderate"
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
-                    target.src = `https://ui-avatars.com/api/?name=${trader.trader_name}&background=6366f1&color=fff`;
+                    target.src = `https://ui-avatars.com/api/?name=${trader.trader_name}&background=1a1f3a&color=00d4ff`;
                   }}
                 />
                 {trader.win_rate > 75 && (
-                  <div className="absolute -top-2 -right-2 bg-yellow-400 rounded-full p-1">
-                    <Award className="h-4 w-4 text-yellow-800" />
+                  <div className="absolute -top-2 -right-2 bg-semantic-warning rounded-full p-1">
+                    <Award className="h-4 w-4 text-text-primary" />
                   </div>
                 )}
               </div>
               <div>
-                <h2 className="text-3xl font-bold text-gray-900 mb-2">{trader.trader_name}</h2>
+                <h2 className="text-h1 text-text-primary mb-2 font-display">{trader.trader_name}</h2>
                 <div className="flex items-center space-x-4 mb-4">
                   <div className="flex items-center space-x-2">
-                    <span className="text-sm text-gray-600">Wallet:</span>
-                    <code className="bg-gray-100 px-3 py-1 rounded text-sm font-mono">
+                    <span className="text-small text-text-tertiary">Wallet:</span>
+                    <code className="bg-navy-accent-dark px-3 py-1 rounded text-small font-mono text-text-secondary">
                       {trader.trader_wallet.slice(0, 10)}...{trader.trader_wallet.slice(-8)}
                     </code>
                     <button
                       onClick={copyWalletAddress}
                       className={`p-1 rounded transition-colors ${
-                        copySuccess ? 'text-green-600' : 'text-gray-400 hover:text-gray-600'
+                        copySuccess ? 'text-semantic-success' : 'text-text-tertiary hover:text-text-primary'
                       }`}
                       title="Copy wallet address"
                     >
@@ -324,7 +322,7 @@ export default function TraderProfile() {
                   </div>
                 </div>
                 {trader.description && (
-                  <p className="text-gray-600 max-w-2xl">{trader.description}</p>
+                  <p className="text-body text-text-secondary max-w-2xl">{trader.description}</p>
                 )}
               </div>
             </div>
@@ -332,7 +330,7 @@ export default function TraderProfile() {
             <div className="flex space-x-3">
               <button
                 onClick={() => setShowAddWalletModal(true)}
-                className="flex items-center space-x-2 bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 transition-colors font-medium"
+                className="btn-primary flex items-center space-x-2"
               >
                 <Plus className="h-4 w-4" />
                 <span>Add to My Wallets</span>
@@ -343,53 +341,53 @@ export default function TraderProfile() {
 
         {/* Performance Stats */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <div className="bg-white rounded-lg shadow-md p-6">
+          <div className="card-dark p-6">
             <div className="flex items-center justify-between mb-2">
-              <h3 className="text-sm font-medium text-gray-600">Total Profit</h3>
-              <DollarSign className="h-5 w-5 text-green-500" />
+              <h3 className="text-small text-text-tertiary">Total Profit</h3>
+              <DollarSign className="h-5 w-5 text-semantic-success" />
             </div>
-            <p className="text-2xl font-bold text-green-600">
+            <p className="text-h2 font-bold text-semantic-success">
               +{formatProfit(trader.total_profit)}
             </p>
           </div>
 
-          <div className="bg-white rounded-lg shadow-md p-6">
+          <div className="card-dark p-6">
             <div className="flex items-center justify-between mb-2">
-              <h3 className="text-sm font-medium text-gray-600">Win Rate</h3>
-              <Target className="h-5 w-5 text-blue-500" />
+              <h3 className="text-small text-text-tertiary">Win Rate</h3>
+              <Target className="h-5 w-5 text-cyan-electric" />
             </div>
-            <p className="text-2xl font-bold text-gray-900">
+            <p className="text-h2 font-bold text-text-primary">
               {trader.win_rate}%
             </p>
-            <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
+            <div className="w-full bg-navy-accent-dark rounded-full h-2 mt-2">
               <div
-                className="bg-blue-500 h-2 rounded-full"
+                className="bg-cyan-electric h-2 rounded-full"
                 style={{ width: `${Math.min(trader.win_rate, 100)}%` }}
               ></div>
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow-md p-6">
+          <div className="card-dark p-6">
             <div className="flex items-center justify-between mb-2">
-              <h3 className="text-sm font-medium text-gray-600">Total Trades</h3>
-              <Activity className="h-5 w-5 text-purple-500" />
+              <h3 className="text-small text-text-tertiary">Total Trades</h3>
+              <Activity className="h-5 w-5 text-blue-vibrant" />
             </div>
-            <p className="text-2xl font-bold text-gray-900">
+            <p className="text-h2 font-bold text-text-primary">
               {trader.total_trades.toLocaleString()}
             </p>
           </div>
 
-          <div className="bg-white rounded-lg shadow-md p-6">
+          <div className="card-dark p-6">
             <div className="flex items-center justify-between mb-2">
-              <h3 className="text-sm font-medium text-gray-600">Past Month</h3>
+              <h3 className="text-small text-text-tertiary">Past Month</h3>
               {trader.past_month_profit >= 0 ? (
-                <TrendingUp className="h-5 w-5 text-green-500" />
+                <TrendingUp className="h-5 w-5 text-semantic-success" />
               ) : (
-                <TrendingDown className="h-5 w-5 text-red-500" />
+                <TrendingDown className="h-5 w-5 text-semantic-danger" />
               )}
             </div>
-            <p className={`text-2xl font-bold ${
-              trader.past_month_profit >= 0 ? 'text-green-600' : 'text-red-600'
+            <p className={`text-h2 font-bold ${
+              trader.past_month_profit >= 0 ? 'text-semantic-success' : 'text-semantic-danger'
             }`}>
               {trader.past_month_profit >= 0 ? '+' : ''}{formatProfit(trader.past_month_profit)}
             </p>
@@ -399,40 +397,40 @@ export default function TraderProfile() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Top 5 Most Profitable Trades */}
           <div className="lg:col-span-2">
-            <div className="bg-white rounded-lg shadow-md p-6">
-              <h3 className="text-xl font-semibold text-gray-900 mb-6 flex items-center space-x-2">
-                <BarChart3 className="h-5 w-5 text-indigo-600" />
+            <div className="card-dark p-6">
+              <h3 className="text-h3 text-text-primary mb-6 flex items-center space-x-2">
+                <BarChart3 className="h-5 w-5 text-cyan-electric" />
                 <span>Top 5 Most Profitable Trades</span>
               </h3>
               
               {topTrades.length === 0 ? (
                 <div className="text-center py-8">
-                  <Activity className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                  <p className="text-gray-500">No trades data available</p>
+                  <Activity className="h-12 w-12 text-text-muted mx-auto mb-4" />
+                  <p className="text-body text-text-secondary">No trades data available</p>
                 </div>
               ) : (
                 <div className="space-y-4">
                   {topTrades.map((trade, index) => (
-                    <div key={trade.id} className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+                    <div key={trade.id} className="border border-border-subtle rounded-lg p-4 hover:border-border-moderate transition-all duration-standard">
                       <div className="flex items-center justify-between mb-2">
                         <div className="flex items-center space-x-3">
-                          <span className="bg-indigo-100 text-indigo-700 text-sm font-medium px-2 py-1 rounded">
+                          <span className="bg-navy-accent-dark text-cyan-electric text-small font-medium px-2 py-1 rounded">
                             #{index + 1}
                           </span>
-                          <h4 className="font-medium text-gray-900">{trade.market_name}</h4>
+                          <h4 className="font-medium text-text-primary">{trade.market_name}</h4>
                         </div>
                         <div className="flex items-center space-x-2">
                           <span className={`text-lg font-bold ${
-                            trade.profit >= 0 ? 'text-green-600' : 'text-red-600'
+                            trade.profit >= 0 ? 'text-semantic-success' : 'text-semantic-danger'
                           }`}>
                             {trade.profit >= 0 ? '+' : ''}{formatProfit(trade.profit)}
                           </span>
                         </div>
                       </div>
-                      <div className="flex items-center justify-between text-sm text-gray-600">
+                      <div className="flex items-center justify-between text-small text-text-tertiary">
                         <div className="flex items-center space-x-4">
-                          <span>Position: <span className="font-medium">{trade.position}</span></span>
-                          <span>Amount: <span className="font-medium">{formatProfit(trade.amount)}</span></span>
+                          <span>Position: <span className="font-medium text-text-secondary">{trade.position}</span></span>
+                          <span>Amount: <span className="font-medium text-text-secondary">{formatProfit(trade.amount)}</span></span>
                         </div>
                         <div className="flex items-center space-x-1">
                           <Calendar className="h-4 w-4" />
@@ -448,9 +446,9 @@ export default function TraderProfile() {
 
           {/* PnL Breakdown */}
           <div className="lg:col-span-1">
-            <div className="bg-white rounded-lg shadow-md p-6">
-              <h3 className="text-xl font-semibold text-gray-900 mb-6 flex items-center space-x-2">
-                <BarChart3 className="h-5 w-5 text-indigo-600" />
+            <div className="card-dark p-6">
+              <h3 className="text-h3 text-text-primary mb-6 flex items-center space-x-2">
+                <BarChart3 className="h-5 w-5 text-cyan-electric" />
                 <span>PnL Breakdown</span>
               </h3>
               
@@ -458,8 +456,8 @@ export default function TraderProfile() {
                 <div className="space-y-6">
                   <div>
                     <div className="flex justify-between items-center mb-1">
-                      <span className="text-sm text-gray-600">Best Single Trade</span>
-                      <span className="text-lg font-bold text-green-600">
+                      <span className="text-small text-text-tertiary">Best Single Trade</span>
+                      <span className="text-lg font-bold text-semantic-success">
                         +{formatProfit(pnlMetrics.best_single_trade)}
                       </span>
                     </div>
@@ -467,8 +465,8 @@ export default function TraderProfile() {
 
                   <div>
                     <div className="flex justify-between items-center mb-1">
-                      <span className="text-sm text-gray-600">Worst Single Trade</span>
-                      <span className="text-lg font-bold text-red-600">
+                      <span className="text-small text-text-tertiary">Worst Single Trade</span>
+                      <span className="text-lg font-bold text-semantic-danger">
                         {formatProfit(pnlMetrics.worst_single_trade)}
                       </span>
                     </div>
@@ -476,8 +474,8 @@ export default function TraderProfile() {
 
                   <div>
                     <div className="flex justify-between items-center mb-1">
-                      <span className="text-sm text-gray-600">Average Position Size</span>
-                      <span className="text-lg font-bold text-gray-900">
+                      <span className="text-small text-text-tertiary">Average Position Size</span>
+                      <span className="text-lg font-bold text-text-primary">
                         {formatProfit(pnlMetrics.avg_position_size)}
                       </span>
                     </div>
@@ -485,14 +483,14 @@ export default function TraderProfile() {
 
                   <div>
                     <div className="flex justify-between items-center mb-2">
-                      <span className="text-sm text-gray-600">Win Rate</span>
-                      <span className="text-lg font-bold text-gray-900">
+                      <span className="text-small text-text-tertiary">Win Rate</span>
+                      <span className="text-lg font-bold text-text-primary">
                         {pnlMetrics.win_rate_percentage}%
                       </span>
                     </div>
-                    <div className="w-full bg-gray-200 rounded-full h-2">
+                    <div className="w-full bg-navy-accent-dark rounded-full h-2">
                       <div
-                        className="bg-blue-500 h-2 rounded-full"
+                        className="bg-cyan-electric h-2 rounded-full"
                         style={{ width: `${Math.min(pnlMetrics.win_rate_percentage, 100)}%` }}
                       ></div>
                     </div>
@@ -500,8 +498,8 @@ export default function TraderProfile() {
 
                   <div>
                     <div className="flex justify-between items-center mb-1">
-                      <span className="text-sm text-gray-600">Largest Position</span>
-                      <span className="text-lg font-bold text-gray-900">
+                      <span className="text-small text-text-tertiary">Largest Position</span>
+                      <span className="text-lg font-bold text-text-primary">
                         {formatProfit(pnlMetrics.largest_position)}
                       </span>
                     </div>
@@ -509,7 +507,7 @@ export default function TraderProfile() {
 
                   <div>
                     <div className="flex justify-between items-center mb-1">
-                      <span className="text-sm text-gray-600">Risk Level</span>
+                      <span className="text-small text-text-tertiary">Risk Level</span>
                       <span className={`px-2 py-1 rounded-full text-xs font-medium ${getRiskLevelColor(pnlMetrics.risk_level)}`}>
                         {pnlMetrics.risk_level}
                       </span>
@@ -524,37 +522,37 @@ export default function TraderProfile() {
 
       {/* Add Wallet Modal */}
       {showAddWalletModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
+        <div className="modal-overlay" onClick={() => setShowAddWalletModal(false)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold text-gray-900">Add Wallet to My Wallets</h3>
+              <h3 className="text-h3 text-text-primary">Add Wallet to My Wallets</h3>
               <button
                 onClick={() => setShowAddWalletModal(false)}
-                className="text-gray-400 hover:text-gray-600"
+                className="text-text-tertiary hover:text-text-primary transition-colors"
               >
                 <X className="h-5 w-5" />
               </button>
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="auth-label">
                   Wallet Address
                 </label>
-                <div className="bg-gray-50 border border-gray-200 rounded-lg p-3 text-sm font-mono">
+                <div className="bg-navy-accent-dark border border-border-subtle rounded-lg p-3 text-small font-mono text-text-secondary">
                   {walletAddress}
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="auth-label">
                   Label (Optional)
                 </label>
                 <input
                   type="text"
                   value={walletLabel}
                   onChange={(e) => setWalletLabel(e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="input-dark w-full focus-glow"
                   placeholder={trader?.trader_name || 'Enter a label'}
                 />
               </div>
@@ -562,17 +560,17 @@ export default function TraderProfile() {
               <div className="flex space-x-3 pt-4">
                 <button
                   onClick={() => setShowAddWalletModal(false)}
-                  className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+                  className="flex-1 px-4 py-3 border border-border-subtle text-text-secondary rounded-lg hover:bg-navy-hover hover:text-text-primary transition-all duration-standard"
                 >
                   Cancel
                 </button>
                 <button
                   onClick={handleAddToWallets}
                   disabled={addWalletLoading}
-                  className="flex-1 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
+                  className="flex-1 btn-primary disabled:cursor-not-allowed flex items-center justify-center space-x-2"
                 >
                   {addWalletLoading ? (
-                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                    <div className="loading-spinner"></div>
                   ) : (
                     <>
                       <Plus className="h-4 w-4" />

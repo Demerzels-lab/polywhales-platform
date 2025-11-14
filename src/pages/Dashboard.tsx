@@ -17,7 +17,6 @@ export default function Dashboard() {
   const [activities, setActivities] = useState<BettingActivity[]>([]);
   const [recommendedTraders, setRecommendedTraders] = useState<RecommendedTrader[]>([]);
 
-
   const [loading, setLoading] = useState(true);
   const [showAddForm, setShowAddForm] = useState(false);
 
@@ -111,8 +110,6 @@ export default function Dashboard() {
     }
   };
 
-
-
   const handleAddWallet = async (walletAddress: string, label?: string) => {
     try {
       if (!user) {
@@ -164,53 +161,47 @@ export default function Dashboard() {
     }
   };
 
-
-
-
-
-
-
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-hero flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading dashboard...</p>
+          <div className="loading-spinner mx-auto mb-4"></div>
+          <p className="text-body text-text-secondary">Loading dashboard...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+    <div className="min-h-screen bg-gradient-hero">
       {/* Header */}
-      <header className="bg-white shadow-sm border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <div className="bg-indigo-600 p-2 rounded-lg">
-                <Activity className="h-6 w-6 text-white" />
+      <header className="header-dark">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-full">
+            <div className="nav-logo">
+              <div className="nav-logo-icon">
+                <Activity className="h-6 w-6 text-cyan-electric" />
               </div>
-              <h1 className="text-2xl font-bold text-gray-900">PolyWhales</h1>
+              <h1 className="nav-logo-text">PolyWhales</h1>
             </div>
             <div className="flex items-center space-x-4">
-              <div className="flex items-center space-x-2 text-sm text-gray-600">
+              <div className="flex items-center space-x-2 text-sm text-text-secondary">
                 <User className="h-4 w-4" />
-                <span>{user?.email}</span>
+                <span className="font-mono">{user?.email}</span>
               </div>
-              <span className="text-sm text-gray-500">
+              <span className="text-sm text-text-tertiary">
                 {wallets.length} wallet{wallets.length !== 1 ? 's' : ''} tracked
               </span>
               <button
                 onClick={() => setShowAddForm(true)}
-                className="flex items-center space-x-2 bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors"
+                className="flex items-center space-x-2 btn-primary"
               >
                 <Plus className="h-4 w-4" />
                 <span>Add Wallet</span>
               </button>
               <button
                 onClick={handleSignOut}
-                className="flex items-center space-x-2 text-gray-600 hover:text-gray-800 transition-colors"
+                className="flex items-center space-x-2 text-text-secondary hover:text-text-primary transition-colors"
                 title="Sign Out"
               >
                 <LogOut className="h-5 w-5" />
@@ -222,19 +213,19 @@ export default function Dashboard() {
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Info Banner */}
-        <div className="bg-blue-50 border-l-4 border-blue-400 p-4 mb-8 rounded-r-lg">
+        <div className="bg-navy-elevated border-l-4 border-cyan-electric p-4 mb-8 rounded-r-lg shadow-card">
           <div className="flex items-start">
             <div className="flex-shrink-0">
-              <Wallet className="h-5 w-5 text-blue-400" />
+              <Wallet className="h-5 w-5 text-cyan-electric" />
             </div>
             <div className="ml-3">
-              <p className="text-sm text-blue-700">
+              <p className="text-body text-text-primary">
                 Track Polymarket traders and get instant alerts via Telegram bot{' '}
                 <a
                   href="https://t.me/PolyWhales_bot"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-semibold underline hover:text-blue-800"
+                  className="font-semibold underline hover:text-cyan-electric transition-colors"
                 >
                   @PolyWhales_bot
                 </a>
@@ -244,48 +235,41 @@ export default function Dashboard() {
         </div>
 
         {/* Tab Navigation */}
-        <div className="bg-white rounded-lg shadow-sm mb-6 border border-gray-200">
-          <div className="flex border-b border-gray-200">
+        <div className="card-dark mb-6">
+          <div className="tab-nav">
             <button
               onClick={() => setActiveTab('wallets')}
-              className={`flex-1 px-6 py-3 text-sm font-medium transition-colors ${
-                activeTab === 'wallets'
-                  ? 'border-b-2 border-indigo-600 text-indigo-600'
-                  : 'text-gray-600 hover:text-gray-800'
-              }`}
+              className={`tab-button ${activeTab === 'wallets' ? 'data-[active=true]' : ''}`}
+              data-active={activeTab === 'wallets'}
             >
               <div className="flex items-center justify-center space-x-2">
                 <Wallet className="h-4 w-4" />
                 <span>My Wallets</span>
-                <span className="bg-gray-200 text-gray-700 px-2 py-0.5 rounded-full text-xs">
+                <span className="bg-navy-accent-dark text-cyan-electric px-2 py-0.5 rounded-full text-xs">
                   {wallets.length}
                 </span>
               </div>
             </button>
             <button
               onClick={() => setActiveTab('recommended')}
-              className={`flex-1 px-6 py-3 text-sm font-medium transition-colors ${
-                activeTab === 'recommended'
-                  ? 'border-b-2 border-indigo-600 text-indigo-600'
-                  : 'text-gray-600 hover:text-gray-800'
-              }`}
+              className={`tab-button ${activeTab === 'recommended' ? 'data-[active=true]' : ''}`}
+              data-active={activeTab === 'recommended'}
             >
               <div className="flex items-center justify-center space-x-2">
                 <TrendingUp className="h-4 w-4" />
                 <span>Recommended Traders</span>
-                <span className="bg-gray-200 text-gray-700 px-2 py-0.5 rounded-full text-xs">
+                <span className="bg-navy-accent-dark text-cyan-electric px-2 py-0.5 rounded-full text-xs">
                   {recommendedTraders.length}
                 </span>
               </div>
             </button>
-
           </div>
         </div>
 
         {/* Add Wallet Form Modal */}
         {showAddForm && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-            <div className="bg-white rounded-lg shadow-xl max-w-md w-full">
+          <div className="modal-overlay" onClick={() => setShowAddForm(false)}>
+            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
               <AddWalletForm
                 onSubmit={handleAddWallet}
                 onCancel={() => setShowAddForm(false)}
@@ -301,14 +285,14 @@ export default function Dashboard() {
             {/* My Wallets Tab */}
             {activeTab === 'wallets' && (
               <div>
-                <h2 className="text-xl font-semibold text-gray-900 mb-4">Tracked Wallets</h2>
+                <h2 className="text-h2 text-text-primary mb-4">Tracked Wallets</h2>
                 {wallets.length === 0 ? (
-                  <div className="bg-white rounded-lg shadow p-8 text-center">
-                    <Wallet className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                    <p className="text-gray-500 mb-4">No wallets tracked yet</p>
+                  <div className="card-dark p-8 text-center">
+                    <Wallet className="h-12 w-12 text-text-muted mx-auto mb-4" />
+                    <p className="text-body text-text-secondary mb-4">No wallets tracked yet</p>
                     <button
                       onClick={() => setShowAddForm(true)}
-                      className="inline-flex items-center space-x-2 bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 transition-colors"
+                      className="btn-primary inline-flex items-center space-x-2"
                     >
                       <Plus className="h-4 w-4" />
                       <span>Add Your First Wallet</span>
@@ -331,14 +315,14 @@ export default function Dashboard() {
             {/* Recommended Traders Tab */}
             {activeTab === 'recommended' && (
               <div>
-                <h2 className="text-xl font-semibold text-gray-900 mb-4">Top Performers</h2>
-                <p className="text-sm text-gray-600 mb-6">
+                <h2 className="text-h2 text-text-primary mb-4">Top Performers</h2>
+                <p className="text-body text-text-secondary mb-6">
                   Watch these top-performing traders to get notified about their activities
                 </p>
                 {recommendedTraders.length === 0 ? (
-                  <div className="bg-white rounded-lg shadow p-8 text-center">
-                    <TrendingUp className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                    <p className="text-gray-500">No recommended traders available</p>
+                  <div className="card-dark p-8 text-center">
+                    <TrendingUp className="h-12 w-12 text-text-muted mx-auto mb-4" />
+                    <p className="text-body text-text-secondary">No recommended traders available</p>
                   </div>
                 ) : (
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -352,14 +336,11 @@ export default function Dashboard() {
                 )}
               </div>
             )}
-
-
-
           </div>
 
           {/* Activity Feed - Always visible */}
           <div className="lg:col-span-1">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">Recent Activity</h2>
+            <h2 className="text-h2 text-text-primary mb-4">Recent Activity</h2>
             <ActivityFeed activities={activities} />
           </div>
         </div>

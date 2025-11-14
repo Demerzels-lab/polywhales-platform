@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { Activity, TrendingUp, Bell, Eye, Users, BarChart3, Zap, Shield, CheckCircle } from 'lucide-react';
+import { Activity, TrendingUp, Bell, Eye, Users, BarChart3, Zap, Shield, CheckCircle, ArrowLeft } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
+import Waveform from '../components/Waveform';
 
 interface LandingProps {
   onShowAuth: () => void;
@@ -59,22 +60,22 @@ export default function Landing({ onShowAuth }: LandingProps) {
 
   const features = [
     {
-      icon: <TrendingUp className="h-6 w-6" />,
+      icon: <TrendingUp className="h-8 w-8" />,
       title: 'Top Trader Insights',
       description: 'Track performance from top performers on Polymarket with real-time metrics'
     },
     {
-      icon: <Bell className="h-6 w-6" />,
+      icon: <Bell className="h-8 w-8" />,
       title: 'Telegram Alerts',
       description: 'Get instant notifications via Telegram bot for every trader activity'
     },
     {
-      icon: <Eye className="h-6 w-6" />,
+      icon: <Eye className="h-8 w-8" />,
       title: 'Personal Watchlist',
       description: 'Save and monitor your favorite traders in a personal watchlist'
     },
     {
-      icon: <BarChart3 className="h-6 w-6" />,
+      icon: <BarChart3 className="h-8 w-8" />,
       title: 'Performance Analytics',
       description: 'Analyze win rate, profit trends, and trading patterns in depth'
     }
@@ -88,16 +89,16 @@ export default function Landing({ onShowAuth }: LandingProps) {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+    <div className="min-h-screen bg-gradient-hero font-primary">
       {/* Header */}
-      <header className="bg-white shadow-sm border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <div className="bg-indigo-600 p-2 rounded-lg">
-                <Activity className="h-6 w-6 text-white" />
+      <header className="header-dark">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-full">
+            <div className="nav-logo">
+              <div className="nav-logo-icon">
+                <Activity className="h-6 w-6 text-cyan-electric" />
               </div>
-              <h1 className="text-2xl font-bold text-gray-900">PolyWhales</h1>
+              <h1 className="nav-logo-text">PolyWhales</h1>
             </div>
             <div className="flex items-center space-x-4">
               <button
@@ -105,7 +106,7 @@ export default function Landing({ onShowAuth }: LandingProps) {
                   setAuthMode('login');
                   setShowAuthModal(true);
                 }}
-                className="text-gray-600 hover:text-gray-800 font-medium transition-colors"
+                className="btn-ghost"
               >
                 Login
               </button>
@@ -114,7 +115,7 @@ export default function Landing({ onShowAuth }: LandingProps) {
                   setAuthMode('signup');
                   setShowAuthModal(true);
                 }}
-                className="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 transition-colors font-medium"
+                className="btn-primary"
               >
                 Sign Up Free
               </button>
@@ -124,44 +125,52 @@ export default function Landing({ onShowAuth }: LandingProps) {
       </header>
 
       {/* Hero Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="text-center">
-          <h2 className="text-5xl font-bold text-gray-900 mb-6">
-            Track Whale Wallets On Polymarket
-            <span className="block text-indigo-600 mt-2">Get Real-Time Alerts</span>
-          </h2>
-          <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-            Monitor profitable traders, analyze their strategies, and get instant notifications 
-            via Telegram. Start making smarter trading decisions today.
-          </p>
-          <div className="flex justify-center space-x-4">
-            <button
-              onClick={() => {
-                setAuthMode('signup');
-                setShowAuthModal(true);
-              }}
-              className="bg-indigo-600 text-white px-8 py-4 rounded-lg hover:bg-indigo-700 transition-colors font-semibold text-lg flex items-center space-x-2"
-            >
-              <Zap className="h-5 w-5" />
-              <span>Start Tracking Now</span>
-            </button>
-            <button
-              onClick={() => {
-                const element = document.getElementById('preview');
-                element?.scrollIntoView({ behavior: 'smooth' });
-              }}
-              className="bg-white text-indigo-600 px-8 py-4 rounded-lg hover:bg-gray-50 transition-colors font-semibold text-lg border-2 border-indigo-600"
-            >
-              View Demo
-            </button>
+      <section className="relative h-[600px] sm:h-[500px] overflow-hidden">
+        <Waveform className="opacity-80" />
+        <div className="relative z-10 flex items-center justify-center h-full">
+          <div className="text-center max-w-4xl px-4">
+            <p className="text-small text-text-tertiary uppercase tracking-wider mb-4">
+              WHALE SIGNALS ARE COMING
+            </p>
+            <h2 className="text-hero font-display font-bold text-text-primary leading-tight mb-4">
+              POLYWHALES
+            </h2>
+            <p className="text-h3 text-text-secondary mb-8">
+              LAUNCHING SOON
+            </p>
+            <div className="flex justify-center space-x-4 flex-wrap gap-y-4">
+              <button
+                onClick={() => {
+                  setAuthMode('signup');
+                  setShowAuthModal(true);
+                }}
+                className="btn-primary flex items-center space-x-2"
+              >
+                <Zap className="h-5 w-5" />
+                <span>Start Tracking Now</span>
+              </button>
+              <button
+                onClick={() => {
+                  const element = document.getElementById('preview');
+                  element?.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="btn-secondary"
+              >
+                View Demo
+              </button>
+            </div>
           </div>
+        </div>
+      </section>
 
-          {/* Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16">
+      {/* Stats Section */}
+      <section className="py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {stats.map((stat, index) => (
-              <div key={index} className="bg-white rounded-lg shadow-md p-6">
-                <div className="text-3xl font-bold text-indigo-600 mb-2">{stat.value}</div>
-                <div className="text-sm text-gray-600">{stat.label}</div>
+              <div key={index} className="stats-card">
+                <div className="stats-value">{stat.value}</div>
+                <div className="stats-label">{stat.label}</div>
               </div>
             ))}
           </div>
@@ -169,117 +178,116 @@ export default function Landing({ onShowAuth }: LandingProps) {
       </section>
 
       {/* Features Section */}
-      <section className="bg-white py-20">
+      <section className="py-20 bg-navy-deep">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h3 className="text-3xl font-bold text-gray-900 mb-4">Why Choose PolyWhales?</h3>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <h3 className="text-h2 text-text-primary mb-4">Why Choose PolyWhales?</h3>
+            <p className="text-body-lg text-text-secondary max-w-2xl mx-auto">
               Powerful tools and insights to help you track and learn from top traders
             </p>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid-responsive-4">
             {features.map((feature, index) => (
-              <div key={index} className="text-center">
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-indigo-100 text-indigo-600 mb-4">
+              <div key={index} className="feature-card">
+                <div className="feature-icon">
                   {feature.icon}
                 </div>
-                <h4 className="text-xl font-semibold text-gray-900 mb-2">{feature.title}</h4>
-                <p className="text-gray-600">{feature.description}</p>
+                <h4 className="text-h3 text-text-primary mb-2">{feature.title}</h4>
+                <p className="text-body text-text-secondary">{feature.description}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-
-
       {/* Preview Section */}
-      <section id="preview" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center space-x-2 bg-yellow-100 text-yellow-800 px-4 py-2 rounded-full mb-4">
-            <Shield className="h-4 w-4" />
-            <span className="font-semibold text-sm">PREVIEW MODE - Sample Data</span>
-          </div>
-          <h3 className="text-3xl font-bold text-gray-900 mb-4">Sample Dashboard Preview</h3>
-          <p className="text-lg text-gray-600">
-            See what the complete dashboard looks like with real-time data
-          </p>
-        </div>
-
-        {/* Sample Traders Grid */}
-        <div className="grid md:grid-cols-3 gap-6 mb-8">
-          {sampleTraders.map((trader, index) => (
-            <div key={index} className="bg-white rounded-lg shadow-md p-6 border border-gray-200 relative">
-              <div className="absolute top-4 right-4">
-                <div className="bg-gray-100 text-gray-500 px-3 py-1 rounded-full text-xs font-medium">
-                  Sample
-                </div>
-              </div>
-              <div className="flex items-center space-x-3 mb-3">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-indigo-100 to-purple-100 flex items-center justify-center">
-                  <Users className="h-6 w-6 text-indigo-600" />
-                </div>
-                <div className="flex-1">
-                  <h4 className="font-semibold text-gray-900">{trader.name}</h4>
-                  <p className="text-xs text-gray-500">Top Performer</p>
-                </div>
-              </div>
-              
-              <div className="space-y-2">
-                <div className="flex justify-between items-center bg-gray-50 rounded-lg p-3">
-                  <span className="text-sm text-gray-600">Total Profit</span>
-                  <span className="text-lg font-bold text-green-600">{trader.profit}</span>
-                </div>
-                <div className="flex justify-between items-center bg-gray-50 rounded-lg p-3">
-                  <span className="text-sm text-gray-600">Past Month</span>
-                  <span className="text-lg font-bold text-green-600">{trader.monthProfit}</span>
-                </div>
-                <div className="flex justify-between items-center pt-2 border-t border-gray-200">
-                  <span className="text-sm text-gray-600">Win Rate</span>
-                  <span className="text-sm font-semibold text-gray-900">{trader.winRate}</span>
-                </div>
-              </div>
+      <section id="preview" className="py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <div className="preview-badge mb-4">
+              <Shield className="h-4 w-4" />
+              <span>PREVIEW MODE - Sample Data</span>
             </div>
-          ))}
-        </div>
-        
-        {/* Show all 6 traders call to action */}
-        <div className="text-center mt-8">
-          <p className="text-gray-600 mb-4">Showing 6 of our top recommended traders</p>
-          <div className="text-sm text-gray-500">
-            <span className="inline-flex items-center space-x-1">
-              <span className="w-2 h-2 bg-green-400 rounded-full"></span>
-              <span>Currently profitable</span>
-            </span>
-            <span className="mx-4">•</span>
-            <span className="inline-flex items-center space-x-1">
-              <span className="w-2 h-2 bg-indigo-400 rounded-full"></span>
-              <span>Real Polymarket data</span>
-            </span>
+            <h3 className="text-h2 text-text-primary mb-4">Sample Dashboard Preview</h3>
+            <p className="text-body-lg text-text-secondary">
+              See what the complete dashboard looks like with real-time data
+            </p>
           </div>
-        </div>
 
-        <div className="text-center">
-          <button
-            onClick={() => {
-              setAuthMode('signup');
-              setShowAuthModal(true);
-            }}
-            className="bg-indigo-600 text-white px-8 py-4 rounded-lg hover:bg-indigo-700 transition-colors font-semibold text-lg inline-flex items-center space-x-2"
-          >
-            <CheckCircle className="h-5 w-5" />
-            <span>Unlock Full Dashboard</span>
-          </button>
+          {/* Sample Traders Grid */}
+          <div className="grid-responsive-3 mb-8">
+            {sampleTraders.map((trader, index) => (
+              <div key={index} className="card-trader">
+                <div className="absolute top-4 right-4">
+                  <div className="bg-navy-accent-dark text-text-tertiary px-3 py-1 rounded-full text-xs font-medium">
+                    Sample
+                  </div>
+                </div>
+                <div className="flex items-center space-x-3 mb-6">
+                  <div className="w-12 h-12 rounded-full bg-navy-accent-dark border-2 border-border-moderate flex items-center justify-center">
+                    <Users className="h-6 w-6 text-cyan-electric" />
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="text-h3 text-text-primary font-semibold">{trader.name}</h4>
+                    <p className="text-small text-text-tertiary">Top Performer</p>
+                  </div>
+                </div>
+                
+                <div className="space-y-3">
+                  <div className="flex justify-between items-center bg-navy-accent-dark rounded-lg p-3">
+                    <span className="text-body text-text-tertiary">Total Profit</span>
+                    <span className="text-h3 font-bold text-semantic-success">{trader.profit}</span>
+                  </div>
+                  <div className="flex justify-between items-center bg-navy-accent-dark rounded-lg p-3">
+                    <span className="text-body text-text-tertiary">Past Month</span>
+                    <span className="text-h3 font-bold text-semantic-success">{trader.monthProfit}</span>
+                  </div>
+                  <div className="flex justify-between items-center pt-3 border-t border-border-subtle">
+                    <span className="text-body text-text-tertiary">Win Rate</span>
+                    <span className="text-body font-semibold text-text-primary">{trader.winRate}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+          
+          {/* Call to action */}
+          <div className="text-center mt-8 mb-8">
+            <p className="text-body text-text-secondary mb-4">Showing 6 of our top recommended traders</p>
+            <div className="text-small text-text-tertiary">
+              <span className="inline-flex items-center space-x-1 mr-4">
+                <span className="w-2 h-2 bg-semantic-success rounded-full"></span>
+                <span>Currently profitable</span>
+              </span>
+              <span className="inline-flex items-center space-x-1">
+                <span className="w-2 h-2 bg-cyan-electric rounded-full"></span>
+                <span>Real Polymarket data</span>
+              </span>
+            </div>
+          </div>
+
+          <div className="text-center">
+            <button
+              onClick={() => {
+                setAuthMode('signup');
+                setShowAuthModal(true);
+              }}
+              className="btn-primary inline-flex items-center space-x-2"
+            >
+              <CheckCircle className="h-5 w-5" />
+              <span>Unlock Full Dashboard</span>
+            </button>
+          </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="bg-indigo-600 py-20">
+      <section className="py-20 bg-navy-deep">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h3 className="text-4xl font-bold text-white mb-6">
+          <h3 className="text-h2 text-text-primary mb-6">
             Ready to Start Tracking?
           </h3>
-          <p className="text-xl text-indigo-100 mb-8">
+          <p className="text-body-lg text-text-secondary mb-8">
             Join thousands of traders who are already using PolyWhales to improve their trading strategies
           </p>
           <button
@@ -287,58 +295,58 @@ export default function Landing({ onShowAuth }: LandingProps) {
               setAuthMode('signup');
               setShowAuthModal(true);
             }}
-            className="bg-white text-indigo-600 px-8 py-4 rounded-lg hover:bg-gray-50 transition-colors font-semibold text-lg"
+            className="btn-primary text-lg px-12 py-4"
           >
             Create Free Account
           </button>
-          <p className="text-indigo-200 mt-4 text-sm">
+          <p className="text-small text-text-tertiary mt-4">
             No credit card required. Get started in seconds.
           </p>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-gray-400 py-12">
+      <footer className="bg-navy-deepest text-text-tertiary py-12 border-t border-border-subtle">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-3 gap-8">
             <div>
               <div className="flex items-center space-x-2 mb-4">
-                <div className="bg-indigo-600 p-2 rounded-lg">
-                  <Activity className="h-5 w-5 text-white" />
+                <div className="bg-navy-elevated p-2 rounded-lg shadow-glow-cyan-sm">
+                  <Activity className="h-5 w-5 text-cyan-electric" />
                 </div>
-                <span className="text-white font-bold text-lg">PolyWhales</span>
+                <span className="text-text-primary font-bold text-lg">PolyWhales</span>
               </div>
-              <p className="text-sm">
+              <p className="text-small">
                 Track top Polymarket traders and get real-time alerts via Telegram.
               </p>
             </div>
             <div>
-              <h4 className="text-white font-semibold mb-4">Product</h4>
-              <ul className="space-y-2 text-sm">
-                <li><a href="#" className="hover:text-white transition-colors">Features</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Pricing</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">FAQ</a></li>
+              <h4 className="text-text-primary font-semibold mb-4">Product</h4>
+              <ul className="space-y-2 text-small">
+                <li><a href="#" className="hover:text-text-primary transition-colors">Features</a></li>
+                <li><a href="#" className="hover:text-text-primary transition-colors">Pricing</a></li>
+                <li><a href="#" className="hover:text-text-primary transition-colors">FAQ</a></li>
               </ul>
             </div>
             <div>
-              <h4 className="text-white font-semibold mb-4">Connect</h4>
-              <ul className="space-y-2 text-sm">
+              <h4 className="text-text-primary font-semibold mb-4">Connect</h4>
+              <ul className="space-y-2 text-small">
                 <li>
                   <a 
                     href="https://t.me/PolyWhales_bot" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="hover:text-white transition-colors"
+                    className="hover:text-cyan-electric transition-colors"
                   >
                     Telegram Bot
                   </a>
                 </li>
-                <li><a href="#" className="hover:text-white transition-colors">Twitter</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Discord</a></li>
+                <li><a href="#" className="hover:text-text-primary transition-colors">Twitter</a></li>
+                <li><a href="#" className="hover:text-text-primary transition-colors">Discord</a></li>
               </ul>
             </div>
           </div>
-          <div className="border-t border-gray-800 mt-8 pt-8 text-center text-sm">
+          <div className="border-t border-border-subtle mt-8 pt-8 text-center text-small">
             <p>2025 PolyWhales. All rights reserved.</p>
           </div>
         </div>
@@ -346,36 +354,44 @@ export default function Landing({ onShowAuth }: LandingProps) {
 
       {/* Auth Modal */}
       {showAuthModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg shadow-xl max-w-md w-full p-8">
-            <h3 className="text-2xl font-bold text-gray-900 mb-6">
-              {authMode === 'login' ? 'Welcome Back' : 'Create Account'}
-            </h3>
+        <div className="modal-overlay" onClick={() => setShowAuthModal(false)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-h2 text-text-primary">
+                {authMode === 'login' ? 'Welcome Back' : 'Create Account'}
+              </h3>
+              <button
+                onClick={() => setShowAuthModal(false)}
+                className="text-text-tertiary hover:text-text-primary transition-colors p-2"
+              >
+                <ArrowLeft className="h-6 w-6" />
+              </button>
+            </div>
             
-            <form onSubmit={handleAuth} className="space-y-4">
+            <form onSubmit={handleAuth} className="space-y-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="auth-label">
                   Email Address
                 </label>
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="input-dark w-full focus-glow"
                   placeholder="you@example.com"
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="auth-label">
                   Password
                 </label>
                 <input
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="input-dark w-full focus-glow"
                   placeholder="••••••••"
                   required
                   minLength={6}
@@ -383,7 +399,7 @@ export default function Landing({ onShowAuth }: LandingProps) {
               </div>
 
               {error && (
-                <div className="bg-red-50 text-red-600 p-3 rounded-lg text-sm">
+                <div className="bg-red-500/10 border border-semantic-danger/30 text-semantic-danger p-4 rounded-lg text-small">
                   {error}
                 </div>
               )}
@@ -391,31 +407,25 @@ export default function Landing({ onShowAuth }: LandingProps) {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-indigo-600 text-white px-4 py-3 rounded-lg hover:bg-indigo-700 transition-colors font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full btn-primary disabled:cursor-not-allowed flex items-center justify-center space-x-2"
               >
-                {loading ? 'Processing...' : authMode === 'login' ? 'Login' : 'Sign Up'}
+                {loading ? (
+                  <div className="loading-spinner"></div>
+                ) : null}
+                <span>{loading ? 'Processing...' : authMode === 'login' ? 'Login' : 'Sign Up'}</span>
               </button>
             </form>
 
             <div className="mt-6 text-center">
               <button
                 onClick={() => setAuthMode(authMode === 'login' ? 'signup' : 'login')}
-                className="text-indigo-600 hover:text-indigo-700 text-sm font-medium"
+                className="text-cyan-electric hover:text-cyan-light text-small font-medium transition-colors"
               >
                 {authMode === 'login' 
                   ? "Don't have an account? Sign up" 
                   : 'Already have an account? Login'}
               </button>
             </div>
-
-            <button
-              onClick={() => setShowAuthModal(false)}
-              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
-            >
-              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
           </div>
         </div>
       )}
