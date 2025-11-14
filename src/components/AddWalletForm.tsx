@@ -40,12 +40,12 @@ export default function AddWalletForm({ onSubmit, onCancel }: AddWalletFormProps
   };
 
   return (
-    <div className="p-6">
+    <div className="p-6 bg-navy-accent-dark rounded-lg border border-border-moderate">
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-xl font-semibold text-gray-900">Add Wallet to Track</h2>
+        <h2 className="text-h3 font-semibold text-text-primary">Add Wallet to Track</h2>
         <button
           onClick={onCancel}
-          className="text-gray-400 hover:text-gray-600 transition-colors"
+          className="text-text-tertiary hover:text-text-primary transition-colors"
         >
           <X className="h-5 w-5" />
         </button>
@@ -53,7 +53,7 @@ export default function AddWalletForm({ onSubmit, onCancel }: AddWalletFormProps
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label htmlFor="walletAddress" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="walletAddress" className="block text-body font-medium text-text-primary mb-1">
             Wallet Address <span className="text-red-500">*</span>
           </label>
           <input
@@ -62,13 +62,13 @@ export default function AddWalletForm({ onSubmit, onCancel }: AddWalletFormProps
             value={walletAddress}
             onChange={(e) => setWalletAddress(e.target.value)}
             placeholder="0x..."
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+            className="w-full px-4 py-2 border border-border-moderate rounded-lg bg-navy-accent-dark text-text-primary focus:ring-2 focus:ring-cyan-electric focus:border-transparent"
             disabled={loading}
           />
         </div>
 
         <div>
-          <label htmlFor="label" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="label" className="block text-body font-medium text-text-primary mb-1">
             Label (Optional)
           </label>
           <input
@@ -77,14 +77,14 @@ export default function AddWalletForm({ onSubmit, onCancel }: AddWalletFormProps
             value={label}
             onChange={(e) => setLabel(e.target.value)}
             placeholder="e.g., Top Trader, Whale #1"
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+            className="w-full px-4 py-2 border border-border-moderate rounded-lg bg-navy-accent-dark text-text-primary focus:ring-2 focus:ring-cyan-electric focus:border-transparent"
             disabled={loading}
           />
         </div>
 
         {error && (
           <div className="bg-red-50 border border-red-200 rounded-lg p-3">
-            <p className="text-sm text-red-600">{error}</p>
+            <p className="text-body text-red-600">{error}</p>
           </div>
         )}
 
@@ -92,14 +92,14 @@ export default function AddWalletForm({ onSubmit, onCancel }: AddWalletFormProps
           <button
             type="submit"
             disabled={loading}
-            className="flex-1 bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="flex-1 bg-cyan-electric text-text-primary px-4 py-2 rounded-lg hover:bg-cyan-electric/80 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {loading ? 'Adding...' : 'Add Wallet'}
           </button>
           <button
             type="button"
             onClick={onCancel}
-            className="flex-1 bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors"
+            className="flex-1 bg-navy-accent-dark text-text-tertiary px-4 py-2 rounded-lg hover:bg-navy-accent-dark/80 transition-colors border border-border-subtle"
           >
             Cancel
           </button>

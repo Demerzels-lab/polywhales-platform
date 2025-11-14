@@ -34,12 +34,10 @@ export default function RecommendedTraderCard({ trader }: RecommendedTraderCardP
     return `$${absAmount.toFixed(2)}`;
   };
 
-
-
   const isProfitPositive = trader.past_month_profit >= 0;
 
   return (
-    <div className="bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-200 p-5 border border-gray-200">
+    <div className="card-trader bg-navy-accent-dark rounded-lg shadow-md hover:shadow-lg transition-all duration-200 p-5 border border-border-moderate">
       {/* Header with Avatar and Name */}
       <div className="flex items-start justify-between mb-4">
         <div className="flex items-center space-x-3">
@@ -60,14 +58,14 @@ export default function RecommendedTraderCard({ trader }: RecommendedTraderCardP
             )}
           </div>
           <div>
-            <h3 className="font-semibold text-gray-900 text-lg">{trader.trader_name}</h3>
-            <p className="text-xs text-gray-500 truncate max-w-[180px]">{trader.trader_wallet}</p>
+            <h3 className="text-h3 text-text-primary font-semibold">{trader.trader_name}</h3>
+            <p className="text-small text-text-tertiary truncate max-w-[180px]">{trader.trader_wallet}</p>
           </div>
         </div>
         
         <Link
           to={`/profile/${trader.trader_wallet}`}
-          className="px-3 py-1.5 rounded-lg font-medium text-sm bg-indigo-600 text-white hover:bg-indigo-700 transition-colors flex items-center space-x-1"
+          className="px-3 py-1.5 rounded-lg font-medium text-sm bg-cyan-electric text-text-primary hover:bg-cyan-electric/80 transition-colors flex items-center space-x-1"
           onClick={(event) => {
             console.log('Link clicked for trader:', trader.trader_name, 'navigating to:', `/profile/${trader.trader_wallet}`);
             console.log('Event target:', event.currentTarget.getAttribute('href'));
@@ -79,34 +77,34 @@ export default function RecommendedTraderCard({ trader }: RecommendedTraderCardP
 
       {/* Description */}
       {trader.description && (
-        <p className="text-sm text-gray-600 mb-4 line-clamp-2">{trader.description}</p>
+        <p className="text-body text-text-tertiary mb-4 line-clamp-2">{trader.description}</p>
       )}
 
       {/* Performance Metrics */}
       <div className="space-y-3">
         {/* Total Profit */}
-        <div className="flex items-center justify-between bg-gray-50 rounded-lg p-3">
-          <span className="text-sm text-gray-600">Total Profit</span>
-          <span className="text-lg font-bold text-green-600">
+        <div className="flex items-center justify-between bg-navy-accent-dark rounded-lg p-3 border border-border-subtle">
+          <span className="text-body text-text-tertiary">Total Profit</span>
+          <span className="text-h3 font-bold text-semantic-success">
             +{formatProfit(trader.total_profit)}
           </span>
         </div>
 
         {/* Past Month Profit */}
-        <div className="flex items-center justify-between bg-gray-50 rounded-lg p-3">
-          <span className="text-sm text-gray-600">Past Month</span>
+        <div className="flex items-center justify-between bg-navy-accent-dark rounded-lg p-3 border border-border-subtle">
+          <span className="text-body text-text-tertiary">Past Month</span>
           <div className="flex items-center space-x-1">
             {isProfitPositive ? (
               <>
-                <TrendingUp className="h-4 w-4 text-green-500" />
-                <span className="text-lg font-bold text-green-600">
+                <TrendingUp className="h-4 w-4 text-semantic-success" />
+                <span className="text-h3 font-bold text-semantic-success">
                   +{formatProfit(trader.past_month_profit)}
                 </span>
               </>
             ) : (
               <>
                 <TrendingDown className="h-4 w-4 text-red-500" />
-                <span className="text-lg font-bold text-red-600">
+                <span className="text-h3 font-bold text-red-600">
                   {formatProfit(trader.past_month_profit)}
                 </span>
               </>
@@ -115,25 +113,23 @@ export default function RecommendedTraderCard({ trader }: RecommendedTraderCardP
         </div>
 
         {/* Stats Row */}
-        <div className="grid grid-cols-2 gap-2 pt-2 border-t border-gray-200">
+        <div className="grid grid-cols-2 gap-2 pt-2 border-t border-border-subtle">
           <div className="flex items-center space-x-2">
-            <Target className="h-4 w-4 text-indigo-500" />
+            <Target className="h-4 w-4 text-cyan-electric" />
             <div>
-              <p className="text-xs text-gray-500">Win Rate</p>
-              <p className="text-sm font-semibold text-gray-900">{trader.win_rate}%</p>
+              <p className="text-small text-text-tertiary">Win Rate</p>
+              <p className="text-body font-semibold text-text-primary">{trader.win_rate}%</p>
             </div>
           </div>
           <div className="flex items-center space-x-2">
             <TrendingUp className="h-4 w-4 text-purple-500" />
             <div>
-              <p className="text-xs text-gray-500">Trades</p>
-              <p className="text-sm font-semibold text-gray-900">{trader.total_trades}</p>
+              <p className="text-small text-text-tertiary">Trades</p>
+              <p className="text-body font-semibold text-text-primary">{trader.total_trades}</p>
             </div>
           </div>
         </div>
       </div>
-
-
     </div>
   );
 }
