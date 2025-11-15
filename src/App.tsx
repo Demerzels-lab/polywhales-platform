@@ -6,6 +6,8 @@ import Landing from './pages/Landing'
 import Dashboard from './pages/Dashboard'
 import TraderProfile from './pages/TraderProfile'
 import './App.css'
+import CyberpunkBackground from './components/CyberpunkBackground';
+import PulsingGlowBackground from './components/PulsingGlowBackground';
 
 function AppContent() {
   const { user, loading } = useAuth();
@@ -43,6 +45,7 @@ function App() {
   return (
     <AuthProvider>
       <Router>
+        <PulsingGlowBackground/>
         <AppContent />
       </Router>
     </AuthProvider>

@@ -2,14 +2,16 @@ import React from 'react';
 
 interface WaveformProps {
   className?: string;
-  animated?: boolean;
+  // We remove the 'animated' prop, as it will now be animated by default
 }
 
-export default function Waveform({ className = "", animated = true }: WaveformProps) {
+export default function Waveform({ className = "" }: WaveformProps) {
   return (
     <div className={`absolute inset-0 overflow-hidden ${className}`}>
       <svg
-        className={`w-full h-full ${animated ? 'waveform-float' : ''} ${animated ? 'waveform-pulse' : ''}`}
+        // TWEAK: Hardcode the animation classes directly.
+        // We removed the ternary logic.
+        className={`w-full h-full waveform-float waveform-pulse`}
         viewBox="0 0 1200 400"
         preserveAspectRatio="none"
         xmlns="http://www.w3.org/2000/svg"

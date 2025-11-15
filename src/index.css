@@ -95,6 +95,7 @@
   .card-dark {
     @apply bg-navy-elevated border border-border-subtle shadow-card rounded-lg 
            hover:bg-navy-hover hover:border-border-moderate hover:-translate-y-1 
+           hover:shadow-glow-cyan-sm
            transition-all duration-standard ease-out;
   }
 

@@ -89,58 +89,56 @@ export default function Landing({ onShowAuth }: LandingProps) {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-hero font-primary">
+    <div className="min-h-screen font-primary">
       {/* Header */}
-      <header className="header-dark">
+      <header className="header-dark py-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-full">
             <div className="nav-logo">
-              <div className="nav-logo-icon">
-                <Activity className="h-6 w-6 text-cyan-electric" />
-              </div>
-              <h1 className="nav-logo-text">PolyWhales</h1>
+              <img src="/logo.jpeg" alt="PolyWhales Logo" className="h-6 w-6" />
+              <h1 className="hidden md:block nav-logo-text">PolyWhales</h1>
             </div>
-            <div className="flex items-center space-x-4">
-              <a href="https://x.com/WhalesPoly" target="_blank" rel="noopener noreferrer" className="text-text-secondary hover:text-cyan-electric transition-colors">
-                <Twitter className="h-5 w-5" />
-              </a>
-              <a href="https://github.com/Demerzels-lab/polywhales-platform" target="_blank" rel="noopener noreferrer" className="text-text-secondary hover:text-cyan-electric transition-colors">
-                <Github className="h-5 w-5" />
-              </a>
-              <button
-                onClick={() => {
-                  setAuthMode('login');
-                  setShowAuthModal(true);
-                }}
-                className="btn-ghost"
-              >
-                Login
-              </button>
-              <button
-                onClick={() => {
-                  setAuthMode('signup');
-                  setShowAuthModal(true);
-                }}
-                className="btn-primary"
-              >
-                Sign Up Free
-              </button>
-            </div>
+            <div className="flex items-center space-x-2 sm:space-x-4 flex-wrap gap-y-2">
+  <a href="https://x.com/WhalesPoly" target="_blank" rel="noopener noreferrer" className="text-text-secondary hover:text-cyan-electric transition-colors">
+    <Twitter className="h-5 w-5" />
+  </a>
+  <a href="https://github.com/Demerzels-lab/polywhales-platform" target="_blank" rel="noopener noreferrer" className="text-text-secondary hover:text-cyan-electric transition-colors">
+    <Github className="h-5 w-5" />
+  </a>
+  <button
+    onClick={() => {
+      setAuthMode('login');
+      setShowAuthModal(true);
+    }}
+    className="btn-ghost text-sm sm:text-base px-2 sm:px-4"
+  >
+    Login
+  </button>
+  <button
+    onClick={() => {
+      setAuthMode('signup');
+      setShowAuthModal(true);
+    }}
+    className="btn-primary text-sm sm:text-base px-2 sm:px-4"
+  >
+    Sign Up Free
+  </button>
+</div>
           </div>
         </div>
       </header>
 
       {/* Hero Section */}
-      <section className="relative h-screen overflow-hidden">
+      <section className="relative min-h-screen overflow-hidden">
         <Waveform className="opacity-80" />
-        <div className="relative z-10 flex items-center justify-center h-full">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div className="relative z-10 flex items-center justify-center min-h-screen">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-20">
             <div className="text-center">
-              <h2 className="text-5xl font-bold text-text-primary mb-6">
+              <h2 className="text-4xl sm:text-5xl font-bold text-text-primary mb-6">
                 Track Top Polymarket Traders
                 <span className="block text-cyan-electric mt-2">Get Real-Time Alerts</span>
               </h2>
-              <p className="text-xl text-text-secondary mb-8 max-w-3xl mx-auto">
+              <p className="text-lg sm:text-xl text-text-secondary mb-8 max-w-3xl mx-auto">
                 Monitor profitable traders, analyze their strategies, and get instant notifications 
                 via Telegram. Start making smarter trading decisions today.
               </p>
@@ -167,10 +165,10 @@ export default function Landing({ onShowAuth }: LandingProps) {
               </div>
 
               {/* Stats */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mt-8 sm:mt-16">
                 {stats.map((stat, index) => (
-                  <div key={index} className="bg-navy-accent-dark rounded-lg shadow-md p-6 border border-border-moderate">
-                    <div className="text-3xl font-bold text-cyan-electric mb-2">{stat.value}</div>
+                  <div key={index} className="bg-navy-accent-dark rounded-lg shadow-md p-4 sm:p-6 border border-border-moderate">
+                    <div className="text-2xl sm:text-3xl font-bold text-cyan-electric mb-2">{stat.value}</div>
                     <div className="text-sm text-text-secondary">{stat.label}</div>
                   </div>
                 ))}
