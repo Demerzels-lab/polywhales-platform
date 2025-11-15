@@ -230,7 +230,6 @@
 
 # Gatsby files
 **/.cache/
-**/public
 
 # Vue.js
 **/dist/
@@ -530,7 +529,6 @@
 **/.env.local.php
 **/.env.*.local
 **/config/secrets/prod/prod.decrypt.private.php
-**/public/bundles/
 **/var/
 **/vendor/
 
@@ -570,7 +568,6 @@
 **/db/*.sqlite3
 **/db/*.sqlite3-journal
 **/db/*.sqlite3-*
-**/public/system/
 **/coverage/
 **/spec/tmp/
 **/.sass-cache/
@@ -823,9 +820,6 @@
 **/.next/
 **/.nuxt/
 **/.vuepress/dist/
-**/public/build/
-**/public/hot
-**/public/storage
 **/storage/*.key
 **/bootstrap/cache/
 

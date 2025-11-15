@@ -206,7 +206,7 @@ export default function Dashboard() {
               >
                 <LogOut className="h-5 w-5" />
               </button>
-              <a href="https://x.com/WhalesPoly" target="_blank" rel="noopener noreferrer" className="text-text-secondary hover:text-cyan-electric transition-colors">
+              <a href="https://x.com/Polywhalesai" target="_blank" rel="noopener noreferrer" className="text-text-secondary hover:text-cyan-electric transition-colors">
                 <Twitter className="h-5 w-5" />
               </a>
               <a href="https://github.com/Demerzels-lab/polywhales-platform" target="_blank" rel="noopener noreferrer" className="text-text-secondary hover:text-cyan-electric transition-colors">
