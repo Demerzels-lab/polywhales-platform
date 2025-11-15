@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Activity, TrendingUp, Bell, Eye, Users, BarChart3, Zap, Shield, CheckCircle, ArrowLeft } from 'lucide-react';
+import { Activity, TrendingUp, Bell, Eye, Users, BarChart3, Zap, Shield, CheckCircle, ArrowLeft, Twitter, Github } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import Waveform from '../components/Waveform';
 
@@ -101,6 +101,12 @@ export default function Landing({ onShowAuth }: LandingProps) {
               <h1 className="nav-logo-text">PolyWhales</h1>
             </div>
             <div className="flex items-center space-x-4">
+              <a href="https://x.com/WhalesPoly" target="_blank" rel="noopener noreferrer" className="text-text-secondary hover:text-cyan-electric transition-colors">
+                <Twitter className="h-5 w-5" />
+              </a>
+              <a href="https://github.com/Demerzels-lab/polywhales-platform" target="_blank" rel="noopener noreferrer" className="text-text-secondary hover:text-cyan-electric transition-colors">
+                <Github className="h-5 w-5" />
+              </a>
               <button
                 onClick={() => {
                   setAuthMode('login');
@@ -125,39 +131,50 @@ export default function Landing({ onShowAuth }: LandingProps) {
       </header>
 
       {/* Hero Section */}
-      <section className="relative h-[600px] sm:h-[500px] overflow-hidden">
+      <section className="relative h-screen overflow-hidden">
         <Waveform className="opacity-80" />
         <div className="relative z-10 flex items-center justify-center h-full">
-          <div className="text-center max-w-4xl px-4">
-            <p className="text-small text-text-tertiary uppercase tracking-wider mb-4">
-              WHALE SIGNALS ARE COMING
-            </p>
-            <h2 className="text-hero font-display font-bold text-text-primary leading-tight mb-4">
-              POLYWHALES
-            </h2>
-            <p className="text-h3 text-text-secondary mb-8">
-              LAUNCHING SOON
-            </p>
-            <div className="flex justify-center space-x-4 flex-wrap gap-y-4">
-              <button
-                onClick={() => {
-                  setAuthMode('signup');
-                  setShowAuthModal(true);
-                }}
-                className="btn-primary flex items-center space-x-2"
-              >
-                <Zap className="h-5 w-5" />
-                <span>Start Tracking Now</span>
-              </button>
-              <button
-                onClick={() => {
-                  const element = document.getElementById('preview');
-                  element?.scrollIntoView({ behavior: 'smooth' });
-                }}
-                className="btn-secondary"
-              >
-                View Demo
-              </button>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <div className="text-center">
+              <h2 className="text-5xl font-bold text-text-primary mb-6">
+                Track Top Polymarket Traders
+                <span className="block text-cyan-electric mt-2">Get Real-Time Alerts</span>
+              </h2>
+              <p className="text-xl text-text-secondary mb-8 max-w-3xl mx-auto">
+                Monitor profitable traders, analyze their strategies, and get instant notifications 
+                via Telegram. Start making smarter trading decisions today.
+              </p>
+              <div className="flex justify-center space-x-4 flex-wrap gap-y-4">
+                <button
+                  onClick={() => {
+                    setAuthMode('signup');
+                    setShowAuthModal(true);
+                  }}
+                  className="btn-primary flex items-center space-x-2"
+                >
+                  <Zap className="h-5 w-5" />
+                  <span>Start Tracking Now</span>
+                </button>
+                <button
+                  onClick={() => {
+                    const element = document.getElementById('preview');
+                    element?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="btn-secondary"
+                >
+                  View Demo
+                </button>
+              </div>
+
+              {/* Stats */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16">
+                {stats.map((stat, index) => (
+                  <div key={index} className="bg-navy-accent-dark rounded-lg shadow-md p-6 border border-border-moderate">
+                    <div className="text-3xl font-bold text-cyan-electric mb-2">{stat.value}</div>
+                    <div className="text-sm text-text-secondary">{stat.label}</div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -320,31 +337,7 @@ export default function Landing({ onShowAuth }: LandingProps) {
                 Track top Polymarket traders and get real-time alerts via Telegram.
               </p>
             </div>
-            <div>
-              <h4 className="text-text-primary font-semibold mb-4">Product</h4>
-              <ul className="space-y-2 text-small">
-                <li><a href="#" className="hover:text-text-primary transition-colors">Features</a></li>
-                <li><a href="#" className="hover:text-text-primary transition-colors">Pricing</a></li>
-                <li><a href="#" className="hover:text-text-primary transition-colors">FAQ</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-text-primary font-semibold mb-4">Connect</h4>
-              <ul className="space-y-2 text-small">
-                <li>
-                  <a 
-                    href="https://t.me/PolyWhales_bot" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="hover:text-cyan-electric transition-colors"
-                  >
-                    Telegram Bot
-                  </a>
-                </li>
-                <li><a href="#" className="hover:text-text-primary transition-colors">Twitter</a></li>
-                <li><a href="#" className="hover:text-text-primary transition-colors">Discord</a></li>
-              </ul>
-            </div>
+            
           </div>
           <div className="border-t border-border-subtle mt-8 pt-8 text-center text-small">
             <p>2025 PolyWhales. All rights reserved.</p>

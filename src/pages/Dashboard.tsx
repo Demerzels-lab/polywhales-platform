@@ -6,7 +6,7 @@ import WalletCard from '../components/WalletCard';
 import AddWalletForm from '../components/AddWalletForm';
 import ActivityFeed from '../components/ActivityFeed';
 import RecommendedTraderCard from '../components/RecommendedTraderCard';
-import { Activity, Wallet, Plus, LogOut, User, TrendingUp } from 'lucide-react';
+import { Activity, Wallet, Plus, LogOut, User, TrendingUp, Twitter, Github } from 'lucide-react';
 
 type TabType = 'wallets' | 'recommended';
 
@@ -175,7 +175,7 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen bg-gradient-hero">
       {/* Header */}
-      <header className="header-dark">
+      <header className="header-dark sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-full">
             <div className="nav-logo">
@@ -184,12 +184,12 @@ export default function Dashboard() {
               </div>
               <h1 className="nav-logo-text">PolyWhales</h1>
             </div>
-            <div className="flex items-center space-x-4">
-              <div className="flex items-center space-x-2 text-sm text-text-secondary">
+            <div className="flex items-center space-x-2 sm:space-x-4 flex-wrap gap-2">
+              <div className="flex items-center space-x-2 text-sm text-text-secondary hidden sm:flex">
                 <User className="h-4 w-4" />
                 <span className="font-mono">{user?.email}</span>
               </div>
-              <span className="text-sm text-text-tertiary">
+              <span className="text-sm text-text-tertiary hidden sm:inline">
                 {wallets.length} wallet{wallets.length !== 1 ? 's' : ''} tracked
               </span>
               <button
@@ -197,7 +197,7 @@ export default function Dashboard() {
                 className="flex items-center space-x-2 btn-primary"
               >
                 <Plus className="h-4 w-4" />
-                <span>Add Wallet</span>
+                <span className="hidden sm:inline">Add Wallet</span>
               </button>
               <button
                 onClick={handleSignOut}
@@ -206,6 +206,12 @@ export default function Dashboard() {
               >
                 <LogOut className="h-5 w-5" />
               </button>
+              <a href="https://x.com/WhalesPoly" target="_blank" rel="noopener noreferrer" className="text-text-secondary hover:text-cyan-electric transition-colors">
+                <Twitter className="h-5 w-5" />
+              </a>
+              <a href="https://github.com/Demerzels-lab/polywhales-platform" target="_blank" rel="noopener noreferrer" className="text-text-secondary hover:text-cyan-electric transition-colors">
+                <Github className="h-5 w-5" />
+              </a>
             </div>
           </div>
         </div>
